@@ -68,17 +68,17 @@ export function Footer() {
 
           <address className="col-span-2 flex flex-col gap-3 text-[15px] text-mist not-italic md:col-span-1">
             <span className={headingClass}>Reach us</span>
-            <span className="flex items-center gap-2.5">
+            <a href={contact.phoneHref} className="flex items-center gap-2.5 transition-colors hover:text-gold">
               <PhoneIcon size={18} className="shrink-0 text-muted" />
               {contact.phone}
-            </span>
-            <span className="flex items-center gap-2.5">
+            </a>
+            <a href={contact.emailHref} className="flex items-center gap-2.5 transition-colors hover:text-gold">
               <MailIcon size={18} className="shrink-0 text-muted" />
               {contact.email}
-            </span>
-            <span className="flex items-center gap-2.5">
-              <PinIcon size={18} className="shrink-0 text-muted" />
-              {contact.location}
+            </a>
+            <span className="flex items-start gap-2.5">
+              <PinIcon size={18} className="mt-0.5 shrink-0 text-muted" />
+              <span className="leading-[1.6]">{contact.locations.join(" | ")}</span>
             </span>
           </address>
         </div>
@@ -92,7 +92,12 @@ export function Footer() {
             <a href="#terms" className="transition-colors hover:text-gold">
               Terms
             </a>
-            <a href={contact.linkedin} className="transition-colors hover:text-gold">
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-gold"
+            >
               LinkedIn
             </a>
           </span>

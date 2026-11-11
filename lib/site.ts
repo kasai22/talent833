@@ -12,11 +12,10 @@ export const routes = {
   contact: "/contact",
 } as const;
 
+/** Nav items; Services opens a dropdown of the featured services (see Header). */
 export const primaryNav = [
   { label: "About", href: routes.about },
   { label: "Services", href: routes.services },
-  { label: "Training", href: routes.training },
-  { label: "Clients", href: routes.clients },
   { label: "Contact", href: routes.contact },
 ] as const;
 
@@ -29,8 +28,23 @@ export const logos = {
 } as const;
 
 export const contact = {
-  phone: "[Phone number]",
-  email: "[Email address]",
-  location: "[City, State]",
-  linkedin: "#linkedin",
+  /** Display format. */
+  phone: "+91 97011 13833",
+  phoneHref: "tel:+919701113833",
+  email: "info@talent833.com",
+  emailHref: "mailto:info@talent833.com",
+  /** Cities we operate in. */
+  locations: ["Vizag", "Hyderabad", "Kolkata", "Chennai", "Bengaluru", "Mumbai", "Bhubaneswar"],
+  linkedin: "https://www.linkedin.com/company/talent-833-partners/",
+  /** WhatsApp number in international format, digits only (country code first, no + or spaces). */
+  whatsapp: "919701113833",
 } as const;
+
+/** Pre-filled WhatsApp message for a service enquiry. */
+export const enquiryMessage = (service: string) =>
+  `Hi Talent833 Partners, I'd like to know more about ${service}.`;
+
+/** Opens a WhatsApp chat with the message pre-filled. */
+export const whatsappHref = (
+  message = "Hi Talent833 Partners, I'd like to connect.",
+) => `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`;

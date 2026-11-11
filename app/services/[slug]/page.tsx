@@ -3,14 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/home/CtaBanner";
-import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon } from "@/components/icons";
+import { ArrowRightIcon, CheckIcon } from "@/components/icons";
 import { ServiceVisual } from "@/components/services/ServiceVisual";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { Container, Eyebrow, PillLink, SectionTitle, cn } from "@/components/ui";
 import { getService, serviceHref, services, type Service } from "@/lib/content/services";
-import { routes } from "@/lib/site";
+import { enquiryMessage, routes } from "@/lib/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -61,9 +62,12 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
         aside={<ServiceVisual service={service} />}
       >
         <div className="flex flex-wrap items-center gap-3 pt-2">
-          <PillLink href={routes.contact} variant="gold" size="lg">
-            Enquire about this <ArrowUpRightIcon size={14} />
-          </PillLink>
+          <WhatsAppLink
+            variant="gold"
+            size="lg"
+            label="Enquire on WhatsApp"
+            message={enquiryMessage(service.title)}
+          />
           <PillLink href={routes.services} variant="outline" size="lg">
             All services
           </PillLink>
@@ -127,9 +131,7 @@ function BestFor({ service }: { service: Service }) {
           </p>
         </div>
         <div className="shrink-0">
-          <PillLink href={routes.contact} variant="light" size="lg">
-            Book a consultation <ArrowUpRightIcon size={14} />
-          </PillLink>
+          <WhatsAppLink variant="light" size="lg" message={enquiryMessage(service.title)} />
         </div>
       </Container>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRightIcon, CheckIcon } from "@/components/icons";
+import { ArrowUpRightIcon, BarsIcon, CompassIcon, TargetIcon } from "@/components/icons";
 import { cn } from "@/components/ui";
 import { heroServices, type HeroService } from "@/lib/content/home";
 import { ServiceDialog } from "./ServiceDialog";
@@ -43,7 +43,7 @@ export function HeroServices() {
                 <IconTile service={s} />
                 <span className="text-[11px] font-semibold tracking-[0.16em] text-muted">{s.num}</span>
               </span>
-              <CardVisual index={i} />
+              <CardVisual slug={s.slug} />
               <span className="flex flex-col gap-1">
                 <span className="font-display text-[22px] leading-[1.1] font-medium tracking-[-0.01em]">
                   {s.title}
@@ -138,9 +138,9 @@ function IconTile({ service, small }: { service: HeroService; small?: boolean })
 }
 
 /** The small decorative "data" illustration unique to each desktop card. */
-function CardVisual({ index }: { index: number }) {
-  switch (index) {
-    case 0:
+function CardVisual({ slug }: { slug: string }) {
+  switch (slug) {
+    case "executive-search":
       return (
         <span className="flex items-center" aria-hidden="true">
           {["bg-[#5A5A5A]", "bg-silver", "bg-[#8E8E8E]", "bg-gold"].map((bg, i) => (
@@ -149,7 +149,7 @@ function CardVisual({ index }: { index: number }) {
           <span className="ml-2.5 text-xs text-mist">₹12 Lakh+ roles</span>
         </span>
       );
-    case 1:
+    case "signature-programmes":
       return (
         <span className="flex flex-col gap-2" aria-hidden="true">
           {[
@@ -166,7 +166,7 @@ function CardVisual({ index }: { index: number }) {
           ))}
         </span>
       );
-    case 2:
+    case "learning-partnerships":
       return (
         <span className="flex h-14 items-end gap-2" aria-hidden="true">
           {[
@@ -185,16 +185,20 @@ function CardVisual({ index }: { index: number }) {
         </span>
       );
     default:
+      // Fractional L&D: needs analysis (target) → strategy hub (compass) → capability (bars).
       return (
-        <span className="flex flex-col gap-[7px] text-xs text-mist" aria-hidden="true">
-          {["Training needs analysis", "Learning strategy", "Competency frameworks"].map((t) => (
-            <span key={t} className="flex items-center gap-2">
-              <span className="flex size-4 items-center justify-center rounded-[5px] bg-gold/18 text-gold">
-                <CheckIcon size={10} />
-              </span>
-              {t}
-            </span>
-          ))}
+        <span className="flex h-14 items-center" aria-hidden="true">
+          <span className="flex size-10 items-center justify-center rounded-full border border-white/14 bg-white/6 text-silver">
+            <TargetIcon size={18} />
+          </span>
+          <span className="h-0 grow border-t border-dashed border-gold/45" />
+          <span className="relative flex size-14 items-center justify-center rounded-full bg-gold text-ink shadow-[0_0_0_6px_rgba(230,171,63,0.12)]">
+            <CompassIcon size={26} />
+          </span>
+          <span className="h-0 grow border-t border-dashed border-gold/45" />
+          <span className="flex size-10 items-center justify-center rounded-full border border-white/14 bg-white/6 text-silver">
+            <BarsIcon size={18} />
+          </span>
         </span>
       );
   }

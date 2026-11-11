@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { ArrowUpRightIcon, PhoneIcon } from "@/components/icons";
+import { PhoneIcon } from "@/components/icons";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { WireGlobe } from "@/components/site/WireGlobe";
-import { Container, Eyebrow, PillLink } from "@/components/ui";
-import { contact, routes } from "@/lib/site";
+import { Container, Eyebrow } from "@/components/ui";
+import { contact } from "@/lib/site";
 
 export function CtaBanner() {
   return (
@@ -19,15 +19,13 @@ export function CtaBanner() {
               Let’s build capabilities that move your business forward.
             </h2>
             <div className="flex flex-wrap items-center gap-3">
-              <PillLink href={routes.contact} variant="gold" size="lg">
-                Book a consultation <ArrowUpRightIcon size={14} />
-              </PillLink>
-              <Link
-                href={routes.contact}
+              <WhatsAppLink variant="gold" size="lg" />
+              <a
+                href={contact.phoneHref}
                 className="flex h-[52px] items-center gap-2 px-3 font-semibold text-mist transition-colors hover:text-gold"
               >
                 <PhoneIcon size={18} /> {contact.phone}
-              </Link>
+              </a>
             </div>
           </div>
         </div>

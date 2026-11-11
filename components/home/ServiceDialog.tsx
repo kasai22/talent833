@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowUpRightIcon, CloseIcon } from "@/components/icons";
+import { CloseIcon } from "@/components/icons";
 import { PillLink } from "@/components/ui";
 import type { HeroService } from "@/lib/content/home";
 import { serviceHref } from "@/lib/content/services";
-import { routes } from "@/lib/site";
+import { enquiryMessage } from "@/lib/site";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 
 type Props = {
   service: HeroService | null;
@@ -80,9 +81,13 @@ export function ServiceDialog({ service, onClose }: Props) {
           </ul>
 
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <PillLink href={routes.contact} variant="gold" className="h-12" onClick={onClose}>
-              Enquire now <ArrowUpRightIcon size={14} />
-            </PillLink>
+            <WhatsAppLink
+              variant="gold"
+              className="h-12"
+              label="Enquire on WhatsApp"
+              message={enquiryMessage(service.title)}
+              onClick={onClose}
+            />
             <PillLink href={serviceHref(service.slug)} variant="outline" className="h-12 px-[18px]" onClick={onClose}>
               Learn more
             </PillLink>

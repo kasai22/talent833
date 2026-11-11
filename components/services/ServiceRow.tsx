@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowRightIcon, ArrowUpRightIcon, CheckIcon } from "@/components/icons";
+import { ArrowRightIcon, CheckIcon } from "@/components/icons";
 import { Container, PillLink, cn } from "@/components/ui";
 import { serviceHref, type Service } from "@/lib/content/services";
-import { routes } from "@/lib/site";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
+import { enquiryMessage } from "@/lib/site";
 import { ServiceVisual } from "./ServiceVisual";
 
 /** Number + category badge, e.g. "01 [HIRING]". */
@@ -63,9 +64,12 @@ export function ServiceRow({ service, flip }: { service: Service; flip: boolean 
           <ServicePoints points={service.points} />
           <div className="flex flex-col gap-4 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-3">
-              <PillLink href={routes.contact} variant="gold" className="px-6">
-                Enquire about this <ArrowUpRightIcon size={14} />
-              </PillLink>
+              <WhatsAppLink
+                variant="gold"
+                className="pr-6"
+                label="Enquire on WhatsApp"
+                message={enquiryMessage(service.title)}
+              />
               <PillLink href={href} variant="outline" className="px-[18px]">
                 Learn more <ArrowRightIcon size={16} />
                 <span className="sr-only">about {service.title}</span>

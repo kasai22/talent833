@@ -34,12 +34,17 @@ export type HeroService = {
 export const heroServices: HeroService[] = [
   {
     num: "01",
-    title: "Executive & Specialist Search",
-    tag: "Leadership & critical talent acquisition",
-    desc: "We help organisations attract, engage and hire high-impact talent for ₹12 Lakh+ roles across leadership and specialist positions.",
-    points: ["GCCs", "Technology & SaaS", "BFSI & FinTech", "Product & Digital, Leadership & Functional Roles"],
-    icon: UsersIcon,
-    slug: "executive-search",
+    title: "Fractional L&D Partner",
+    tag: "Your outsourced L&D leadership",
+    desc: "Experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
+    points: [
+      "Training Needs Analysis",
+      "Learning Strategy & Standardisation",
+      "Competency Frameworks",
+      "Leadership & Managerial Capability",
+    ],
+    icon: ShieldCheckIcon,
+    slug: "fractional-ld-partner",
   },
   {
     num: "02",
@@ -71,17 +76,12 @@ export const heroServices: HeroService[] = [
   },
   {
     num: "04",
-    title: "Fractional L&D Partner",
-    tag: "Your outsourced L&D leadership",
-    desc: "Experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
-    points: [
-      "Training Needs Analysis",
-      "Learning Strategy & Standardisation",
-      "Competency Frameworks",
-      "Leadership & Managerial Capability",
-    ],
-    icon: ShieldCheckIcon,
-    slug: "fractional-ld-partner",
+    title: "Executive & Specialist Search",
+    tag: "Leadership & critical talent acquisition",
+    desc: "We help organisations attract, engage and hire high-impact talent for ₹12 Lakh+ roles across leadership and specialist positions.",
+    points: ["GCCs", "Technology & SaaS", "BFSI & FinTech", "Product & Digital, Leadership & Functional Roles"],
+    icon: UsersIcon,
+    slug: "executive-search",
   },
   {
     num: "05",

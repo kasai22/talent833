@@ -127,3 +127,22 @@ export function getService(slug: string) {
 }
 
 export const serviceHref = (slug: string) => `${routes.services}/${slug}`;
+
+export type ServiceSubItem = { title: string; href: string };
+
+const partnershipTrack = (title: string, id: string): ServiceSubItem => ({
+  title,
+  href: `${serviceHref("learning-partnerships")}#${id}`,
+});
+
+/** Second-level menu entries shown under a service in the nav (keyed by service slug). */
+export const serviceSubItems: Record<string, ServiceSubItem[]> = {
+  "learning-partnerships": [
+    partnershipTrack("Service Learning & Capability Development", "service"),
+    partnershipTrack("Retail Learning & Capability Development", "retail"),
+    partnershipTrack("Healthcare Learning & Capability Development", "healthcare"),
+    partnershipTrack("Hospitality Learning & Capability Development", "hospitality"),
+    partnershipTrack("Communication Learning & Capability Development", "communication"),
+    partnershipTrack("Campus-to-Corporate Programmes", "campus-to-corporate"),
+  ],
+};
