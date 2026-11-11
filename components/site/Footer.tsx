@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
 import { Container } from "@/components/ui";
+import { serviceHref } from "@/lib/content/services";
 import { contact, logos, routes } from "@/lib/site";
 
 const columns = [
@@ -16,9 +17,10 @@ const columns = [
   {
     heading: "Services",
     links: [
-      { label: "Fractional L&D Partner", href: routes.services },
-      { label: "Learning Partnerships", href: routes.services },
-      { label: "Executive Search", href: routes.services },
+      { label: "Executive Search", href: serviceHref("executive-search") },
+      { label: "Fractional L&D Partner", href: serviceHref("fractional-ld-partner") },
+      { label: "Learning Partnerships", href: serviceHref("learning-partnerships") },
+      { label: "All services", href: routes.services },
     ],
   },
   {

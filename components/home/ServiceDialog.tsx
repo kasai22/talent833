@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { ArrowUpRightIcon, CloseIcon } from "@/components/icons";
 import { PillLink } from "@/components/ui";
 import type { HeroService } from "@/lib/content/home";
+import { serviceHref } from "@/lib/content/services";
 import { routes } from "@/lib/site";
 
 type Props = {
@@ -82,8 +83,8 @@ export function ServiceDialog({ service, onClose }: Props) {
             <PillLink href={routes.contact} variant="gold" className="h-12" onClick={onClose}>
               Enquire now <ArrowUpRightIcon size={14} />
             </PillLink>
-            <PillLink href={routes.services} variant="outline" className="h-12 px-[18px]" onClick={onClose}>
-              View all services
+            <PillLink href={serviceHref(service.slug)} variant="outline" className="h-12 px-[18px]" onClick={onClose}>
+              Learn more
             </PillLink>
           </div>
         </div>

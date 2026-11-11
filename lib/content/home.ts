@@ -11,6 +11,7 @@ import {
   UsersIcon,
   type IconProps,
 } from "@/components/icons";
+import { serviceHref } from "@/lib/content/services";
 import { routes } from "@/lib/site";
 
 type Icon = ComponentType<IconProps>;
@@ -26,6 +27,8 @@ export type HeroService = {
   desc: string;
   points: [string, string, string, string];
   icon: Icon;
+  /** Detail page under /services. */
+  slug: string;
 };
 
 export const heroServices: HeroService[] = [
@@ -36,6 +39,7 @@ export const heroServices: HeroService[] = [
     desc: "We help organisations attract, engage and hire high-impact talent for ₹12 Lakh+ roles across leadership and specialist positions.",
     points: ["GCCs", "Technology & SaaS", "BFSI & FinTech", "Product & Digital, Leadership & Functional Roles"],
     icon: UsersIcon,
+    slug: "executive-search",
   },
   {
     num: "02",
@@ -49,6 +53,7 @@ export const heroServices: HeroService[] = [
       "Customised Learning Solutions",
     ],
     icon: BookIcon,
+    slug: "signature-programmes",
   },
   {
     num: "03",
@@ -62,6 +67,7 @@ export const heroServices: HeroService[] = [
       "Quarterly progress and impact reviews",
     ],
     icon: TrendIcon,
+    slug: "learning-partnerships",
   },
   {
     num: "04",
@@ -75,6 +81,7 @@ export const heroServices: HeroService[] = [
       "Leadership & Managerial Capability",
     ],
     icon: ShieldCheckIcon,
+    slug: "fractional-ld-partner",
   },
   {
     num: "05",
@@ -88,6 +95,7 @@ export const heroServices: HeroService[] = [
       "Designed for your outcomes",
     ],
     icon: CompassIcon,
+    slug: "customised-solutions",
   },
 ];
 
@@ -112,7 +120,7 @@ export type Practice = {
   body: string;
   tone: "gold" | "silver";
   cta: { label: string; href: string };
-  items: { title: string; sub: string; icon: Icon }[];
+  items: { title: string; sub: string; icon: Icon; href?: string }[];
 };
 
 export const practices: Practice[] = [
@@ -123,9 +131,9 @@ export const practices: Practice[] = [
     tone: "gold",
     cta: { label: "Explore services", href: routes.services },
     items: [
-      { title: "Fractional L&D Partner", sub: "Your outsourced L&D leadership", icon: UsersIcon },
-      { title: "Strategic Learning Partnerships", sub: "Year-long learning journeys", icon: ShieldCheckIcon },
-      { title: "Executive & Specialist Search", sub: "₹12 Lakh+ leadership and specialist roles", icon: CompassIcon },
+      { title: "Fractional L&D Partner", sub: "Your outsourced L&D leadership", icon: UsersIcon, href: serviceHref("fractional-ld-partner") },
+      { title: "Strategic Learning Partnerships", sub: "Year-long learning journeys", icon: ShieldCheckIcon, href: serviceHref("learning-partnerships") },
+      { title: "Executive & Specialist Search", sub: "₹12 Lakh+ leadership and specialist roles", icon: CompassIcon, href: serviceHref("executive-search") },
     ],
   },
   {

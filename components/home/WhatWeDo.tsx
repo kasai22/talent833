@@ -71,7 +71,7 @@ function PracticeCard({ practice: p }: { practice: Practice }) {
         {p.items.map((item) => (
           <li key={item.title}>
             <Link
-              href={p.cta.href}
+              href={item.href ?? p.cta.href}
               className="group flex items-center gap-4 border-t border-white/12 px-2 py-[18px] transition-colors hover:bg-white/4"
             >
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/6">

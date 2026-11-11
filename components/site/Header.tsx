@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { ArrowUpRightIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import { PillLink, cn } from "@/components/ui";
@@ -10,6 +11,9 @@ import { logos, primaryNav, routes } from "@/lib/site";
 export function Header() {
   const [open, setOpen] = useState(false);
   const menuId = useId();
+  const pathname = usePathname();
+  const isActive = (href: string) =>
+    href === routes.home ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 
   // Close on Escape and lock page scroll while the mobile menu is open.
   useEffect(() => {
@@ -56,7 +60,11 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-[22px] px-[18px] py-2.5 text-sm font-medium transition-colors hover:text-gold"
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "rounded-[22px] px-[18px] py-2.5 text-sm font-medium transition-colors",
+                isActive(item.href) ? "bg-white/10 text-cream" : "hover:text-gold",
+              )}
             >
               {item.label}
             </Link>
@@ -93,8 +101,9 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
+              aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "flex items-center justify-between border-b border-white/12 py-5",
+                "flex items-center justify-between border-b border-white/12 py-5 aria-[current=page]:text-gold",
                 "font-display text-[28px] font-medium tracking-[-0.02em] transition-colors hover:text-gold",
               )}
             >
