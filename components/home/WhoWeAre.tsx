@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 import { Container, Eyebrow, cn, surface } from "@/components/ui";
+import { about } from "@/lib/content/about";
 import { stats } from "@/lib/content/home";
 import { routes } from "@/lib/site";
 
@@ -15,15 +16,15 @@ export function WhoWeAre() {
               id="who-title"
               className="font-display text-[34px] leading-[1.05] font-medium tracking-[-0.025em] text-balance md:text-[44px] xl:text-[52px]"
             >
-              Beyond training. <span className="text-gold">Building capability that lasts.</span>
+              {about.title}
             </h2>
           </div>
           <div className="flex flex-col gap-5">
-            <p className="text-[15px] leading-[1.65] text-mist md:text-[17px] md:leading-[1.7]">
-              Talent 833 Partners works with organisations to build learning capability and hire high-impact talent —
-              through L&amp;D leadership on demand, year-long learning partnerships, focused programmes and executive
-              search.
-            </p>
+            {about.body.slice(0, 2).map((p) => (
+              <p key={p.slice(0, 24)} className="text-[15px] leading-[1.65] text-mist md:text-[17px] md:leading-[1.7]">
+                {p}
+              </p>
+            ))}
             <Link
               href={routes.about}
               className="flex w-fit items-center gap-2 font-bold text-gold transition-colors hover:text-cream"

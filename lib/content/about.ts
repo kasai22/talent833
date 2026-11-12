@@ -1,11 +1,6 @@
-import { CompassIcon, ShieldCheckIcon, TargetIcon, UsersIcon } from "@/components/icons";
-import type { IconProps } from "@/components/icons";
-
-type Icon = (p: IconProps) => React.JSX.Element;
-
 /**
- * About page content.
- * Photos: drop files into /public/team/ and set `photo` to e.g. "/team/ceo.jpg".
+ * About page content. Source of truth: /content/conrent.txt — keep copy verbatim.
+ * Photos: drop a file into /public/ and set `photo` to its path, e.g. "/sanjonaImage.jpeg".
  * Until a photo is set, a gold monogram of the person's initials is shown instead.
  * Portrait (4:5) images around 800×1000px work best.
  */
@@ -17,49 +12,48 @@ export type Person = {
   linkedin?: string;
 };
 
-export const ceo: Person & { message: string[]; highlights: string[] } = {
-  name: "[CEO Name]",
-  role: "Founder & Chief Executive Officer",
-  photo: undefined, // e.g. "/team/ceo.jpg"
-  linkedin: undefined,
-  message: [
-    "We started Talent833 Partners with a simple belief: organisations grow when their people do. Too often, learning is treated as an event and hiring as a transaction. We set out to change both.",
-    "Every partnership we take on is built around the business, not a catalogue. We sit with leaders, understand what success looks like, and design the capability — or find the leader — that gets them there.",
+export const about = {
+  eyebrow: "About Talent 833 Partners",
+  title: "Learning That Translates Into Real Impact.",
+  body: [
+    "At Talent 833 Partners, we believe learning should go beyond the classroom. We believe in experiential learning that builds capabilities, shifts behaviours and creates meaningful change.",
+    "Our programmes are designed around real workplace challenges, with a focus on practical application, measurable impact and business outcomes.",
+    "Whether it's developing leaders, strengthening teams or building organisational capabilities, we aim to make every learning intervention count.",
   ],
-  highlights: ["[XX]+ years in L&D and talent", "[XX]+ leadership roles placed", "Partnered with [XX]+ organisations"],
+  cta: "Let's understand your organisation and explore how we can make learning work for your business.",
 };
 
-export const team: Person[] = [
-  { name: "[Team Member]", role: "Head of Learning Solutions", photo: undefined },
-  { name: "[Team Member]", role: "Executive Search Lead", photo: undefined },
-  { name: "[Team Member]", role: "Programme Director", photo: undefined },
-  { name: "[Team Member]", role: "Client Partnerships", photo: undefined },
-  { name: "[Team Member]", role: "Instructional Design Lead", photo: undefined },
-  { name: "[Team Member]", role: "Talent Research Associate", photo: undefined },
-];
-
-export const values: { title: string; body: string; icon: Icon }[] = [
-  {
-    title: "Business first",
-    body: "Every programme and every search starts with the outcome your business needs.",
-    icon: TargetIcon,
+export const founder: Person & {
+  alsoKnownAs: string;
+  title: string;
+  message: string[];
+  venture: { before: string; bold: string; after: string };
+  focus: { lead: string; bold: string };
+  nameNote: string;
+  cta: string;
+} = {
+  name: "Sanjona Jonnavithula",
+  alsoKnownAs: "Also addressed as Sanjana.",
+  role: "Founder",
+  photo: "/sanjonaImage.jpeg",
+  linkedin: undefined,
+  title: "13 Years in Learning & Development. Now Building What's Next.",
+  message: [
+    "I bring over 13 years of experience in Learning & Development, specialising in leadership development, organisational capability building and behavioural learning.",
+    "Throughout my journey, I have designed and facilitated learning experiences for diverse audiences, helping individuals strengthen their capabilities, shift behaviours and translate learning into workplace performance.",
+    "I believe learning should go beyond the classroom. It should be experiential, practical and purposeful, with measurable outcomes that create meaningful impact for both people and businesses.",
+  ],
+  venture: {
+    before: "Today, I bring this experience and philosophy to ",
+    bold: "Talent 833 Partners",
+    after:
+      ", a venture built on my belief that the right talent and the right learning experiences can transform organisational performance.",
   },
-  {
-    title: "Partners, not vendors",
-    body: "We stay with you beyond delivery and measure what changes on the ground.",
-    icon: UsersIcon,
-  },
-  {
-    title: "Practical expertise",
-    body: "Practitioners who have led L&D and hiring from the inside, not just advised on it.",
-    icon: CompassIcon,
-  },
-  {
-    title: "Trust and discretion",
-    body: "Confidential searches and candid advice, handled with care at every step.",
-    icon: ShieldCheckIcon,
-  },
-];
+  focus: { lead: "My focus is simple: ", bold: "People. Learning. Performance." },
+  nameNote:
+    "And yes, it's Sanjona, though my name is addressed as Sanjana. The story behind the spelling is for another day!",
+  cta: "Let's connect and explore how we can create meaningful impact for your organisation.",
+};
 
 export const initials = (name: string) =>
   name

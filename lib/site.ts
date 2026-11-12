@@ -14,6 +14,7 @@ export const routes = {
 
 /** Nav items; Services opens a dropdown of the featured services (see Header). */
 export const primaryNav = [
+  { label: "Home", href: routes.home },
   { label: "About", href: routes.about },
   { label: "Services", href: routes.services },
   { label: "Contact", href: routes.contact },

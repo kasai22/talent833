@@ -35,8 +35,8 @@ export const heroServices: HeroService[] = [
   {
     num: "01",
     title: "Fractional L&D Partner",
-    tag: "Your outsourced L&D leadership",
-    desc: "Experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
+    tag: "Your extended L&D partner",
+    desc: "Get experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
     points: [
       "Training Needs Analysis",
       "Learning Strategy & Standardisation",
@@ -63,13 +63,13 @@ export const heroServices: HeroService[] = [
   {
     num: "03",
     title: "Strategic Learning Partnerships",
-    tag: "Your extended L&D capability",
-    desc: "Structured, year-long learning journeys that strengthen workforce capabilities, develop leaders and improve organisational performance.",
+    tag: "Strategic, 12-month learning partnerships",
+    desc: "We partner with organisations to strengthen existing L&D functions or build structured, long-term learning engagements where dedicated L&D capabilities are limited.",
     points: [
-      "A 12-month learning roadmap",
-      "Three capability pillars",
-      "Retail, Healthcare & Hospitality journeys",
-      "Quarterly progress and impact reviews",
+      "Operational Excellence",
+      "Customer Service Excellence",
+      "Leadership Excellence",
+      "Six flagship offerings",
     ],
     icon: TrendIcon,
     slug: "learning-partnerships",
@@ -131,7 +131,7 @@ export const practices: Practice[] = [
     tone: "gold",
     cta: { label: "Explore services", href: routes.services },
     items: [
-      { title: "Fractional L&D Partner", sub: "Your outsourced L&D leadership", icon: UsersIcon, href: serviceHref("fractional-ld-partner") },
+      { title: "Fractional L&D Partner", sub: "Your extended L&D partner", icon: UsersIcon, href: serviceHref("fractional-ld-partner") },
       { title: "Strategic Learning Partnerships", sub: "Year-long learning journeys", icon: ShieldCheckIcon, href: serviceHref("learning-partnerships") },
       { title: "Executive & Specialist Search", sub: "₹12 Lakh+ leadership and specialist roles", icon: CompassIcon, href: serviceHref("executive-search") },
     ],

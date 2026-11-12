@@ -106,7 +106,7 @@ export function Header() {
         className="fixed inset-x-0 top-[72px] bottom-0 overflow-y-auto bg-ink/95 backdrop-blur-md lg:hidden"
       >
         <nav aria-label="Mobile" className="flex flex-col px-5 pt-4 pb-10">
-          {[{ label: "Home", href: routes.home }, ...primaryNav].map((item) => (
+          {primaryNav.map((item) => (
             <div key={item.href} className="border-b border-white/12">
               <Link
                 href={item.href}

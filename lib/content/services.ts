@@ -7,6 +7,7 @@ import {
   UsersIcon,
   type IconProps,
 } from "@/components/icons";
+import { PARTNERSHIPS_SLUG, partnershipHref, partnershipTracks } from "@/lib/content/partnerships";
 import { routes } from "@/lib/site";
 
 /** Which illustration the service card shows (see components/services/ServiceVisual). */
@@ -51,13 +52,13 @@ export const services: Service[] = [
     category: "Learning",
     tone: "gold",
     title: "Fractional L&D Partner",
-    tagline: "Your outsourced L&D leadership.",
-    desc: "Experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
+    tagline: "Your extended L&D partner.",
+    desc: "Get experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
     points: [
       "Training Needs Analysis",
       "Learning Strategy & Standardisation",
       "Competency Frameworks",
-      "Train-the-Trainer, Content Design & KPIs",
+      "Leadership & Managerial Capability",
     ],
     bestFor: "Organisations not ready for a full-time L&D team",
     icon: ShieldCheckIcon,
@@ -70,13 +71,13 @@ export const services: Service[] = [
     category: "Learning",
     tone: "gold",
     title: "Strategic Learning Partnerships",
-    tagline: "Your extended L&D capability.",
-    desc: "Structured, year-long learning journeys that strengthen workforce capabilities, develop leaders and improve organisational performance.",
+    tagline: "Strategic, 12-month learning partnerships.",
+    desc: "We partner with organisations to strengthen existing L&D functions or build structured, long-term learning engagements where dedicated L&D capabilities are limited.",
     points: [
-      "A 12-month learning roadmap",
-      "Operational, Customer & Leadership Excellence",
-      "Retail, Healthcare & Hospitality journeys",
-      "Quarterly progress and impact reviews",
+      "Operational Excellence",
+      "Customer Service Excellence",
+      "Leadership Excellence",
+      "Six flagship offerings",
     ],
     bestFor: "Building capability that lasts, beyond one-off workshops",
     icon: CompassIcon,
@@ -130,19 +131,7 @@ export const serviceHref = (slug: string) => `${routes.services}/${slug}`;
 
 export type ServiceSubItem = { title: string; href: string };
 
-const partnershipTrack = (title: string, id: string): ServiceSubItem => ({
-  title,
-  href: `${serviceHref("learning-partnerships")}#${id}`,
-});
-
 /** Second-level menu entries shown under a service in the nav (keyed by service slug). */
 export const serviceSubItems: Record<string, ServiceSubItem[]> = {
-  "learning-partnerships": [
-    partnershipTrack("Service Learning & Capability Development", "service"),
-    partnershipTrack("Retail Learning & Capability Development", "retail"),
-    partnershipTrack("Healthcare Learning & Capability Development", "healthcare"),
-    partnershipTrack("Hospitality Learning & Capability Development", "hospitality"),
-    partnershipTrack("Communication Learning & Capability Development", "communication"),
-    partnershipTrack("Campus-to-Corporate Programmes", "campus-to-corporate"),
-  ],
+  [PARTNERSHIPS_SLUG]: partnershipTracks.map((t) => ({ title: t.title, href: partnershipHref(t.id) })),
 };

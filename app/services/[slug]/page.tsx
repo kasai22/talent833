@@ -10,6 +10,8 @@ import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { Container, Eyebrow, PillLink, SectionTitle, cn } from "@/components/ui";
+import { ServiceDetailBlocks } from "@/components/services/ServiceDetailBlocks";
+import { serviceDetails } from "@/lib/content/serviceDetails";
 import { getService, serviceHref, services, type Service } from "@/lib/content/services";
 import { enquiryMessage, routes } from "@/lib/site";
 
@@ -42,6 +44,7 @@ export default function ServiceDetailPage({ params }: PageProps<"/services/[slug
 async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "params">) {
   const service = getService((await params).slug);
   if (!service) notFound();
+  const detail = serviceDetails[service.slug];
 
   return (
     <>
@@ -55,7 +58,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
         title={service.title}
         lede={
           <>
-            <p className="text-cream">{service.tagline}</p>
+            <p className="text-cream">{detail?.headline ?? service.tagline}</p>
             <p className="mt-3 text-muted md:text-base">{service.desc}</p>
           </>
         }
@@ -74,7 +77,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
         </div>
       </PageHero>
 
-      <Included service={service} />
+      {detail ? <ServiceDetailBlocks blocks={detail.blocks} /> : <Included service={service} />}
       <BestFor service={service} />
       <OtherServices current={service} />
     </>
