@@ -23,36 +23,93 @@ export const about = {
   cta: "Let's understand your organisation and explore how we can make learning work for your business.",
 };
 
+/** About page hero only. `about` above still feeds the home page "Who we are" block. */
+export const aboutHero = {
+  eyebrow: "About Talent833 Partners",
+  title: "Capability is built by people. We start there.",
+  /** Each paragraph is a list of runs; `{ mark }` runs get the viewfinder focus highlight. */
+  body: [
+    [
+      "Talent833 Partners helps organisations build the capability they need and hire the talent that will carry it forward. ",
+      {
+        mark: "We bring learning and hiring together because the strongest organisations grow both at once: people who keep developing, and leaders who are chosen with care.",
+      },
+    ],
+    [
+      "From fractional L&D leadership and year-long learning partnerships to signature programmes and executive search, our work is structured, outcome-focused and flexible enough to fit where your business actually is. With teams across India, ",
+      { mark: "we work as an extension of yours, not as a vendor on the sidelines." },
+    ],
+  ] satisfies Array<Array<string | { mark: string }>>,
+  beliefsLead: "Everything we do rests on three beliefs.",
+  philosophiesTitle: "Our Philosophies",
+  philosophies: [
+    {
+      number: "01",
+      area: "Learning",
+      tagline: "Break the Routine. Rethink the Experience.",
+      belief: "We believe people learn by doing, not by sitting through slides.",
+      detail:
+        "So we replace lecture-led sessions with immersive, experiential learning rooted in real work and built to change what people do on Monday morning.",
+    },
+    {
+      number: "02",
+      area: "Capability Building",
+      tagline: "An Eagle's Eye. A Human-Centred Lens.",
+      belief: "We believe capability grows where strategy meets people.",
+      detail:
+        "We start with the view from above: where the organisation is and where it needs to go. Then we come down to the people who will get it there, building on their strengths, not just filling gaps.",
+    },
+    {
+      number: "03",
+      area: "Talent Acquisition",
+      tagline: "Beyond the Resume. Into What Makes a Person.",
+      belief: "We believe a resume tells you where someone has been, not who they are.",
+      detail:
+        "We look at how people think, what drives them and what they could bring to a role, so every hire is a match of person to purpose, not just profile to job description.",
+    },
+  ],
+};
+
+/** Each `body` paragraph is a list of runs; `{ strong }` runs are set in bold. */
 export const founder: Person & {
+  eyebrow: string;
   alsoKnownAs: string;
   title: string;
-  message: string[];
-  venture: { before: string; bold: string; after: string };
-  focus: { lead: string; bold: string };
-  nameNote: string;
-  cta: string;
+  body: Array<Array<string | { strong: string }>>;
+  closing: string;
+  cta: { title: string; body: string };
 } = {
+  eyebrow: "Meet the founder",
   name: "Sanjona Jonnavithula",
   alsoKnownAs: "Also addressed as Sanjana.",
-  role: "Founder",
+  role: "Founder & Chief Talent Strategist, Talent 833 Partners",
   photo: "/sanjonaImage.jpeg",
-  linkedin: undefined,
-  title: "13 Years in Learning & Development. Now Building What's Next.",
-  message: [
-    "I bring over 13 years of experience in Learning & Development, specialising in leadership development, organisational capability building and behavioural learning.",
-    "Throughout my journey, I have designed and facilitated learning experiences for diverse audiences, helping individuals strengthen their capabilities, shift behaviours and translate learning into workplace performance.",
-    "I believe learning should go beyond the classroom. It should be experiential, practical and purposeful, with measurable outcomes that create meaningful impact for both people and businesses.",
+  linkedin: "https://www.linkedin.com/in/sanjona-jonnavithula",
+  title: "People learn differently. They grow differently. There is no one-size-fits-all way forward.",
+  body: [
+    [
+      "For me, learning is more than transferring knowledge. It should challenge assumptions, open up new perspectives and influence how we think and act.",
+    ],
+    [
+      "Over 13 years in Learning & Development, I've worked across leadership development, behavioural learning and organisational capability, designing experiences that help people and businesses grow.",
+    ],
+    [
+      "I've always believed that people shouldn't be shaped to fit predefined moulds. ",
+      {
+        strong:
+          "The best work happens when we recognise individuality, question convention and make room for different ways of thinking and growing.",
+      },
+    ],
+    ["Because transformation is a journey, not a one-time intervention."],
+    [
+      "That belief is at the heart of Talent 833 Partners — bringing a more thoughtful, human-centred approach to talent and development.",
+    ],
   ],
-  venture: {
-    before: "Today, I bring this experience and philosophy to ",
-    bold: "Talent 833 Partners",
-    after:
-      ", a venture built on my belief that the right talent and the right learning experiences can transform organisational performance.",
+  closing: "Less convention. More curiosity. More possibility.",
+  cta: {
+    title: "Let's start a conversation.",
+    body: "Have a people challenge or an idea that deserves a different approach? I'd love to hear from you.",
   },
-  focus: { lead: "My focus is simple: ", bold: "People. Learning. Performance." },
-  nameNote:
-    "And yes, it's Sanjona, though my name is addressed as Sanjana. The story behind the spelling is for another day!",
-  cta: "Let's connect and explore how we can create meaningful impact for your organisation.",
 };
 
 export const initials = (name: string) =>

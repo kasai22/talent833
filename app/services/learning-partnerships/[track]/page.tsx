@@ -32,7 +32,7 @@ async function resolve(params: Params) {
 export async function generateMetadata({ params }: PageProps<"/services/learning-partnerships/[track]">): Promise<Metadata> {
   const t = await resolve(params);
   if (!t) return {};
-  const lead = t.kind === "flow" ? t.kicker : `${t.headline} ${t.intro[0]}`;
+  const lead = t.kind === "flow" ? t.kicker : `${t.headline} ${t.intro}`;
   return { title: t.title, description: lead };
 }
 
@@ -74,11 +74,7 @@ async function TrackDetail({ params }: { params: Params }) {
             <div className="flex flex-col gap-3">
               <p className="font-display text-xl text-cream md:text-2xl">{t.headline}</p>
               {t.kicker && <p className="font-semibold text-gold">{t.kicker}</p>}
-              {t.intro.map((p) => (
-                <p key={p.slice(0, 24)} className="md:text-base">
-                  {p}
-                </p>
-              ))}
+              <p className="md:text-base">{t.intro}</p>
             </div>
           )
         }
@@ -109,7 +105,7 @@ async function TrackDetail({ params }: { params: Params }) {
           <LinkCards
             items={partnershipTracks
               .filter((o) => o.id !== t.id)
-              .map((o) => ({ title: o.title, href: partnershipHref(o.id), num: o.num }))}
+              .map((o) => ({ title: o.title, href: partnershipHref(o.id), num: o.num, icon: o.icon }))}
           />
         </Container>
       </section>

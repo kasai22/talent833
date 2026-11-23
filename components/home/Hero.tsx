@@ -42,16 +42,19 @@ export function Hero() {
               src={logos.full.src}
               width={logos.full.width}
               height={logos.full.height}
-              alt="Talent833 Partners"
+              alt="Talent833 HR Services"
               className="h-auto w-[170px] md:w-[230px] xl:w-[300px]"
               preload
             />
-            <span
-              aria-hidden="true"
-              className="text-[9px] font-semibold tracking-[0.22em] text-mist uppercase [text-shadow:0_0_10px_#000,0_0_18px_#000] md:text-[11px] xl:text-xs xl:tracking-[0.32em]"
-            >
-              Executive Hiring &amp; Learning Solutions
-            </span>
+            {/* Brand tagline (kept out of the logo file) — always a single line */}
+            <p className="flex items-center gap-x-1.5 text-[9px] font-semibold whitespace-nowrap text-white [text-shadow:0_0_10px_#000,0_0_18px_#000] md:gap-x-2.5 md:text-[13px] xl:gap-x-3 xl:text-[15px]">
+              {["Corporate Training", "Capability Development", "Executive & Bulk Hiring"].map((item, i) => (
+                <span key={item} className="flex items-center gap-x-1.5 md:gap-x-2.5 xl:gap-x-3">
+                  {i > 0 && <span aria-hidden="true" className="h-[1.1em] w-0.5 bg-gold" />}
+                  {item}
+                </span>
+              ))}
+            </p>
             <span className="hidden animate-pulse-soft items-center gap-2 text-[13px] text-muted xl:flex">
               <span className="size-1.5 rounded-full bg-gold" aria-hidden="true" />
               Tap a card to explore what we do

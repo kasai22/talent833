@@ -15,10 +15,12 @@ type Props = {
   children?: ReactNode;
   /** Optional right-hand column from `lg` up (replaces the globe). */
   aside?: ReactNode;
+  /** Vertical alignment of the two columns when `aside` is set. Defaults to "center". */
+  asideAlign?: "center" | "start";
 };
 
 /** Inner-page hero: star field, gold glow, wire globe, breadcrumb and title. */
-export function PageHero({ crumbs, eyebrow, title, lede, children, aside }: Props) {
+export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideAlign = "center" }: Props) {
   return (
     <section className="relative isolate overflow-hidden border-b border-white/12">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
@@ -27,13 +29,14 @@ export function PageHero({ crumbs, eyebrow, title, lede, children, aside }: Prop
       </div>
 
       {!aside && (
-        <WireGlobe className="absolute top-[300px] -right-[150px] -z-10 size-[340px] opacity-40 md:top-[170px] md:-right-[120px] md:size-[480px] md:opacity-70 xl:top-[120px] xl:right-auto xl:left-[calc(50%+180px)] xl:size-[640px] xl:opacity-100" />
+        <WireGlobe logoClassName="hidden xl:inline" className="absolute top-[300px] -right-[150px] -z-10 size-[340px] opacity-40 md:top-[170px] md:-right-[120px] md:size-[480px] md:opacity-70 xl:top-[120px] xl:right-auto xl:left-[calc(50%+180px)] xl:size-[640px] xl:opacity-100" />
       )}
 
       <Container
         className={cn(
           "relative pt-[120px] pb-14 md:pt-[150px] md:pb-20 xl:pt-[170px]",
-          aside ? "grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] xl:gap-[72px] xl:pb-24" : "xl:min-h-[560px] xl:pb-20",
+          aside ? "grid gap-10 lg:grid-cols-[1.1fr_1fr] xl:gap-[72px] xl:pb-24" : "xl:min-h-[560px] xl:pb-20",
+          !!aside && (asideAlign === "start" ? "items-start" : "items-center"),
         )}
       >
         <div className="flex max-w-[760px] animate-rise flex-col gap-5">

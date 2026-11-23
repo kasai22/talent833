@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { ArrowRightIcon, CheckIcon } from "@/components/icons";
+import type { ComponentType, ReactNode } from "react";
+import { ArrowRightIcon, CheckIcon, type IconProps } from "@/components/icons";
 import { Container, Eyebrow, PillLink, SectionTitle, cn, surface } from "@/components/ui";
 import type { DetailItem, FlowTrack, FocusTrack } from "@/lib/content/partnerships";
 import type { DetailBlock } from "@/lib/content/serviceDetails";
@@ -35,23 +35,57 @@ function Heading({ eyebrow, title, id, intro }: { eyebrow: string; title: string
   );
 }
 
+/** Gold icon badge — the visual stand-in for a line of copy. */
+export function IconBadge({ icon: Icon, size = "md" }: { icon: ComponentType<IconProps>; size?: "md" | "lg" }) {
+  return (
+    <span
+      className={cn(
+        "flex shrink-0 items-center justify-center rounded-2xl bg-gold/12 text-gold",
+        size === "lg" ? "size-14" : "size-12",
+      )}
+    >
+      <Icon size={size === "lg" ? 28 : 24} />
+    </span>
+  );
+}
+
+function Chips({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {items.map((b) => (
+        <li key={b} className="rounded-full bg-white/6 px-3 py-1 text-[13px] text-mist">
+          {b}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function ItemCard({ item, index }: { item: DetailItem; index: number }) {
   return (
     <li className={cn(card, "flex flex-col gap-4 transition duration-300 hover:-translate-y-1 hover:border-gold/45")}>
-      <span className="font-display text-xl text-gold">{num(index)}</span>
+      {item.icon ? <IconBadge icon={item.icon} /> : <span className="font-display text-xl text-gold">{num(index)}</span>}
       <span className="font-display text-xl leading-[1.2] font-medium md:text-[22px]">{item.title}</span>
       {item.body && <p className="text-[15px] leading-relaxed text-mist">{item.body}</p>}
-      {item.bullets && (
-        <ul className="flex flex-col gap-2">
-          {item.bullets.map((b) => (
-            <li key={b} className="flex gap-2.5 text-[15px] leading-snug text-mist">
-              <CheckIcon size={14} className="mt-1 shrink-0 text-gold" />
-              {b}
-            </li>
-          ))}
-        </ul>
-      )}
+      {item.bullets && <Chips items={item.bullets} />}
     </li>
+  );
+}
+
+/** Compact icon + label tiles. */
+export function Tiles({ items }: { items: { title: string; icon: ComponentType<IconProps> }[] }) {
+  return (
+    <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 lg:gap-4">
+      {items.map((it) => (
+        <li
+          key={it.title}
+          className="flex flex-col items-start gap-4 rounded-[20px] border border-white/12 bg-white/5 p-5 transition duration-300 hover:-translate-y-1 hover:border-gold/45 md:rounded-3xl md:p-6"
+        >
+          <IconBadge icon={it.icon} />
+          <span className="font-display text-lg leading-[1.2] font-medium md:text-xl">{it.title}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -160,7 +194,7 @@ export function LinkCards({
   items,
   current,
 }: {
-  items: { title: string; href: string; num?: string }[];
+  items: { title: string; href: string; num?: string; icon?: ComponentType<IconProps> }[];
   current?: string;
 }) {
   return (
@@ -175,7 +209,10 @@ export function LinkCards({
               "group flex h-full flex-col gap-4 transition duration-300 hover:-translate-y-1 hover:border-gold/45 aria-[current=page]:border-gold/45",
             )}
           >
-            <span className="font-display text-xl text-gold">{it.num ?? num(n)}</span>
+            <span className="flex items-center justify-between">
+              {it.icon ? <IconBadge icon={it.icon} /> : <span />}
+              <span className="font-display text-xl text-gold">{it.num ?? num(n)}</span>
+            </span>
             <span className="grow font-display text-xl leading-[1.2] font-medium transition-colors group-hover:text-gold">
               {it.title}
             </span>
@@ -224,21 +261,19 @@ export function ServiceDetailBlocks({ blocks }: { blocks: DetailBlock[] }) {
                 {b.note && <p className="max-w-[860px] text-[15px] leading-[1.7] text-mist md:text-[17px]">{b.note}</p>}
               </Section>
             );
+          case "tiles":
+            return (
+              <Section key={id} labelledBy={id}>
+                <Heading eyebrow={b.eyebrow} title={b.title} id={id} />
+                <Tiles items={b.items} />
+              </Section>
+            );
           case "index":
             return (
               <Section key={id} labelledBy={id} className="border-t border-white/12">
                 <Heading eyebrow={b.eyebrow} title={b.title} id={id} intro={b.intro} />
                 <LinkCards items={b.items} />
                 {/* <BookConsultation variant="outline" /> */}
-              </Section>
-            );
-          case "closing":
-            return (
-              <Section key={id} labelledBy={id} className="border-t border-white/12">
-                <div className="flex flex-col items-start gap-6">
-                  <SectionTitle id={id}>{b.title}</SectionTitle>
-                  {/* <BookConsultation /> */}
-                </div>
               </Section>
             );
         }

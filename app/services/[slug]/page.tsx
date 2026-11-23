@@ -3,14 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/home/CtaBanner";
-import { ArrowRightIcon, CheckIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { ServiceVisual } from "@/components/services/ServiceVisual";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
-import { Container, Eyebrow, PillLink, SectionTitle, cn } from "@/components/ui";
-import { ServiceDetailBlocks } from "@/components/services/ServiceDetailBlocks";
+import { Container, Eyebrow, PillLink, SectionTitle } from "@/components/ui";
+import { ServiceDetailBlocks, Tiles } from "@/components/services/ServiceDetailBlocks";
 import { serviceDetails } from "@/lib/content/serviceDetails";
 import { getService, serviceHref, services, type Service } from "@/lib/content/services";
 import { enquiryMessage, routes } from "@/lib/site";
@@ -56,12 +56,7 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
         ]}
         eyebrow={`Service ${service.num} · ${service.category}`}
         title={service.title}
-        lede={
-          <>
-            <p className="text-cream">{detail?.headline ?? service.tagline}</p>
-            <p className="mt-3 text-muted md:text-base">{service.desc}</p>
-          </>
-        }
+        lede={<p className="text-cream">{detail?.headline ?? service.desc}</p>}
         aside={<ServiceVisual service={service} />}
       >
         <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -85,36 +80,15 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
 }
 
 function Included({ service }: { service: Service }) {
-  const gold = service.tone === "gold";
+  const hiring = service.category === "Hiring";
   return (
     <section aria-labelledby="included-title" className="py-14 md:py-20 xl:py-24">
       <Container className="flex flex-col gap-8 md:gap-10">
         <div className="flex flex-col gap-[18px]">
-          <Eyebrow tone={service.tone}>
-            {service.category === "Hiring" ? "Where we hire" : "What’s included"}
-          </Eyebrow>
-          <SectionTitle id="included-title">
-            {service.category === "Hiring" ? "Sectors and roles we cover" : "What the engagement covers"}
-          </SectionTitle>
+          <Eyebrow tone={service.tone}>{hiring ? "Where we hire" : "What’s included"}</Eyebrow>
+          <SectionTitle id="included-title">{hiring ? "Sectors and roles we cover" : "What the engagement covers"}</SectionTitle>
         </div>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-          {service.points.map((p, i) => (
-            <li
-              key={p}
-              className="flex flex-col gap-6 rounded-[20px] border border-white/12 bg-white/5 p-5 transition duration-300 hover:-translate-y-1 hover:border-gold/45 md:rounded-3xl md:p-7"
-            >
-              <span className="flex items-center justify-between">
-                <span className={cn("font-display text-xl", gold ? "text-gold" : "text-silver")}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="flex size-8 items-center justify-center rounded-[10px] bg-silver/12 text-silver">
-                  <CheckIcon size={14} />
-                </span>
-              </span>
-              <span className="font-display text-xl leading-[1.2] font-medium md:text-[22px]">{p}</span>
-            </li>
-          ))}
-        </ol>
+        <Tiles items={service.points.map((title, i) => ({ title, icon: service.pointIcons[i] }))} />
       </Container>
     </section>
   );

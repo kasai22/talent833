@@ -46,7 +46,7 @@ export function Footer() {
               src={logos.full.src}
               width={logos.full.width}
               height={logos.full.height}
-              alt="Talent833 Partners, Executive Hiring & Learning Solutions"
+              alt="Talent833 HR Services"
               className="h-auto w-40"
             />
             <p className="max-w-[320px] text-[15px] leading-relaxed text-muted">

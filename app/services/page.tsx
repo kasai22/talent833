@@ -23,7 +23,7 @@ export default function ServicesPage() {
           crumbs={[{ label: "Home", href: routes.home }, { label: "Services" }]}
           eyebrow="Our services"
           title="Executive hiring and learning solutions, under one roof."
-          lede="Five ways we help organisations build learning capability and hire high-impact talent. Pick one, or combine them into a single partnership."
+          lede="Five services. Use one, or combine them into a single partnership."
         />
 
         {/* Jump to: wraps on desktop, scrolls sideways on mobile */}

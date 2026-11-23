@@ -146,7 +146,7 @@ function CardVisual({ slug }: { slug: string }) {
           {["bg-[#5A5A5A]", "bg-silver", "bg-[#8E8E8E]", "bg-gold"].map((bg, i) => (
             <span key={bg} className={cn("size-[34px] rounded-full border-2 border-surface", bg, i > 0 && "-ml-2.5")} />
           ))}
-          <span className="ml-2.5 text-xs text-mist">₹12 Lakh+ roles</span>
+          <span className="ml-2.5 text-xs text-mist">Leadership to bulk roles</span>
         </span>
       );
     case "signature-programmes":

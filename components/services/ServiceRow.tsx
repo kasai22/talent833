@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon, CheckIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { Container, PillLink, cn } from "@/components/ui";
 import { serviceHref, type Service } from "@/lib/content/services";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
@@ -24,15 +24,24 @@ export function ServiceTag({ service }: { service: Service }) {
   );
 }
 
-export function ServicePoints({ points, className }: { points: readonly string[]; className?: string }) {
+/** Points as icon chips: scannable at a glance, no sentence to read. */
+export function ServicePoints({ service, className }: { service: Service; className?: string }) {
   return (
-    <ul className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2", className)}>
-      {points.map((p) => (
-        <li key={p} className="flex items-start gap-2.5 text-[15px] text-mist">
-          <CheckIcon size={14} className="mt-1 shrink-0 text-silver" />
-          {p}
-        </li>
-      ))}
+    <ul className={cn("flex flex-wrap gap-2", className)}>
+      {service.points.map((p, i) => {
+        const Icon = service.pointIcons[i];
+        return (
+          <li
+            key={p}
+            className="flex items-center gap-2 rounded-full border border-white/12 bg-white/5 py-1.5 pr-3.5 pl-2 text-sm text-cream"
+          >
+            <span className="flex size-6 items-center justify-center rounded-full bg-gold/12 text-gold">
+              <Icon size={14} />
+            </span>
+            {p}
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -59,9 +68,8 @@ export function ServiceRow({ service, flip }: { service: Service; flip: boolean 
               {service.title}
             </Link>
           </h2>
-          <p className="text-lg">{service.tagline}</p>
-          <p className="leading-[1.7] text-muted">{service.desc}</p>
-          <ServicePoints points={service.points} />
+          <p className="text-lg text-mist">{service.desc}</p>
+          <ServicePoints service={service} />
           <div className="flex flex-col gap-4 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
             <div className="flex flex-wrap items-center gap-3">
               <WhatsAppLink

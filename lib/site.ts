@@ -22,10 +22,10 @@ export const primaryNav = [
 
 /** width/height are the intrinsic size of each file (used for aspect ratio). */
 export const logos = {
-  /** Triangle mark only — header. */
-  mark: { src: "/navbarLogo.png", width: 118, height: 92 },
-  /** Full lockup (mark + "TALENT 833 PARTNERS") — hero and footer. */
-  full: { src: "/heroSectionLogo.png", width: 720, height: 526 },
+  /** Mountain mark only (paths copied from heroSectionLogo.svg) — header. Favicon app/icon.svg uses the same paths. */
+  mark: { src: "/logoMark.svg", width: 527, height: 433 },
+  /** Final logo: full lockup (mark + "TALENT833 HR SERVICES"; tagline is HTML in Hero.tsx) — hero and footer. */
+  full: { src: "/heroSectionLogo.svg", width: 984, height: 687 },
 } as const;
 
 export const contact = {

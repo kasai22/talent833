@@ -39,7 +39,7 @@ export function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-30">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-10 lg:h-[88px] xl:px-14">
-        <Link href={routes.home} aria-label="Talent833 Partners home" className="flex items-center gap-2 lg:gap-3">
+        <Link href={routes.home} aria-label="Talent833 HR Services home" className="flex items-center gap-2 lg:gap-3">
           <Image
             src={logos.mark.src}
             width={logos.mark.width}
@@ -48,14 +48,14 @@ export function Header() {
             className="h-[34px] w-auto lg:h-[46px]"
             preload
           />
-          {/* Text wordmark echoing the lockup: silver TALENT, gold 833, spaced PARTNERS */}
+          {/* Text wordmark echoing the lockup: silver TALENT, gold 833, spaced HR SERVICES */}
           <span aria-hidden="true" className="flex flex-col items-center leading-none">
             <span className="font-display text-[19px] font-semibold tracking-[0.06em] lg:text-[25px]">
               <span className="bg-linear-to-b from-white to-silver bg-clip-text text-transparent">TALENT</span>
               <span className="bg-linear-to-b from-gold-light to-gold bg-clip-text text-transparent">833</span>
             </span>
             <span className="mt-0.5 text-[7px] font-semibold tracking-[0.42em] text-silver lg:text-[9px]">
-              PARTNERS
+              HR SERVICES
             </span>
           </span>
         </Link>

@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { cn } from "@/components/ui";
+import { logos } from "@/lib/site";
 
 const meridianDelays = [0, -4, -8, -12, -16, -20];
 const parallels = [
@@ -10,11 +11,21 @@ const parallels = [
   { cy: 505, rx: 130, ry: 21 },
 ];
 
+const LOGO_W = 230;
+const LOGO_H = (LOGO_W * logos.full.height) / logos.full.width;
+
 /**
- * Wireframe globe with spinning meridians and a dashed gold arc.
+ * Wireframe globe with spinning meridians, a dashed gold arc and the brand logo at its centre.
  * Purely decorative; size and position it with `className`.
  */
-export function WireGlobe({ className }: { className?: string }) {
+export function WireGlobe({
+  className,
+  logoClassName,
+}: {
+  className?: string;
+  /** Classes for the centred logo, e.g. "hidden xl:inline" to hide it where the globe sits behind text. */
+  logoClassName?: string;
+}) {
   const id = useId();
   const fill = `${id}-fill`;
   const clip = `${id}-clip`;
@@ -26,6 +37,10 @@ export function WireGlobe({ className }: { className?: string }) {
           <stop offset="0%" stopColor="#3A3A3A" stopOpacity="0.55" />
           <stop offset="60%" stopColor="#161616" stopOpacity="0.5" />
           <stop offset="100%" stopColor="#060606" stopOpacity="0.2" />
+        </radialGradient>
+        <radialGradient id={`${id}-disc`}>
+          <stop offset="55%" stopColor="#000000" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0" />
         </radialGradient>
         <clipPath id={clip}>
           <circle cx="280" cy="280" r="260" />
@@ -60,6 +75,11 @@ export function WireGlobe({ className }: { className?: string }) {
       />
       <circle cx="124" cy="306" r="4" fill="#FFFFFF" />
       <circle cx="423" cy="228" r="4" fill="#FFFFFF" />
+      {/* Brand logo, centred on a dark disc so it reads over the wireframe */}
+      <g className={logoClassName}>
+        <circle cx="280" cy="280" r="175" fill={`url(#${id}-disc)`} />
+        <image href={logos.full.src} x={280 - LOGO_W / 2} y={280 - LOGO_H / 2} width={LOGO_W} height={LOGO_H} />
+      </g>
     </svg>
   );
 }
