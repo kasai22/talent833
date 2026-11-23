@@ -1,4 +1,9 @@
+import type { StaticImageData } from "next/image";
 import type { ComponentType } from "react";
+import capabilityImg from "@/public/services/capability-building.jpg";
+import fractionalImg from "@/public/services/fractional-ld.jpg";
+import signatureImg from "@/public/services/signature-programmes.jpg";
+import talentImg from "@/public/services/talent-acquisition.jpg";
 import {
   BookIcon,
   CompassIcon,
@@ -10,10 +15,8 @@ import {
   type IconProps,
 } from "@/components/icons";
 import {
-  BankIcon,
   BriefcaseIcon,
   ChatIcon,
-  CodeIcon,
   GearIcon,
   GlobeIcon,
   GridIcon,
@@ -36,6 +39,12 @@ export type Service = {
   /** Gold for the core services, silver for programme-led ones (matches the design). */
   tone: "gold" | "silver";
   title: string;
+  /** Card heading in two parts: plain, then gold (e.g. "Capability" / "Building"). Leave the first empty for a gold-only title. */
+  headline: [string, string];
+  /** One-line strapline under the card heading. */
+  strap: string;
+  /** Card background photo (subject on the right; the left is darkened for text). */
+  image?: StaticImageData;
   tagline: string;
   desc: string;
   /** Short chip labels (2–4 words). */
@@ -51,19 +60,22 @@ type Icon = ComponentType<IconProps>;
 
 export const services: Service[] = [
   {
-    slug: "executive-search",
+    slug: "signature-programmes",
     num: "01",
-    short: "Executive Search",
-    category: "Hiring",
+    short: "Corporate Training",
+    category: "Learning",
     tone: "gold",
-    title: "Executive & Specialist Search",
-    tagline: "Leadership & critical talent acquisition.",
-    desc: "High-impact leadership and specialist hires for ₹12 Lakh+ roles.",
-    points: ["GCCs", "Technology & SaaS", "BFSI & FinTech", "Product, Digital & Leadership"],
-    pointIcons: [GlobeIcon, CodeIcon, BankIcon, BriefcaseIcon],
-    bestFor: "₹12 Lakh+ leadership and specialist roles",
-    icon: UsersIcon,
-    visual: "people",
+    title: "Corporate Training",
+    headline: ["Corporate", "Training"],
+    strap: "Purpose-designed learning experiences that create impact.",
+    image: signatureImg,
+    tagline: "Focused, high-impact interventions.",
+    desc: "Engaging, experiential programmes — standalone, customised and delivered on a one-off basis for your specific capability gaps and business priorities.",
+    points: ["Communication & Workplace Effectiveness", "Leadership Signature Programmes", "Sales, Teams & Problem-solving", "Customised Learning Solutions"],
+    pointIcons: [ChatIcon, BriefcaseIcon, TargetIcon, UsersIcon],
+    bestFor: "A specific gap or business priority",
+    icon: BookIcon,
+    visual: "bars",
   },
   {
     slug: "fractional-ld-partner",
@@ -71,10 +83,13 @@ export const services: Service[] = [
     short: "Fractional L&D",
     category: "Learning",
     tone: "gold",
-    title: "Fractional L&D Partner",
+    title: "Fractional Learning & Development",
+    headline: ["Fractional", "Learning & Development"],
+    strap: "Strategic L&D expertise, on your terms.",
+    image: fractionalImg,
     tagline: "Your extended L&D partner.",
-    desc: "Senior L&D leadership on demand, without a full-time team.",
-    points: ["Needs Analysis", "Learning Strategy", "Competency Frameworks", "Leadership Capability"],
+    desc: "Get experienced L&D leadership, on demand — to build learning strategy, strengthen people capabilities and drive performance, without the overhead of a full-time L&D function.",
+    points: ["Training Needs Analysis", "Learning Strategy & Standardisation", "Competency Frameworks", "Leadership & Managerial Capability"],
     pointIcons: [SearchIcon, MapIcon, GridIcon, BriefcaseIcon],
     bestFor: "Teams not ready for full-time L&D",
     icon: ShieldCheckIcon,
@@ -83,32 +98,38 @@ export const services: Service[] = [
   {
     slug: "learning-partnerships",
     num: "03",
-    short: "Learning Partnerships",
+    short: "Capability Building",
     category: "Learning",
     tone: "gold",
-    title: "Strategic Learning Partnerships",
+    title: "Capability Building",
+    headline: ["Capability", "Building"],
+    strap: "Build skills. Strengthen performance.",
+    image: capabilityImg,
     tagline: "Strategic, 12-month learning partnerships.",
-    desc: "Year-long programmes that strengthen, or stand in for, your L&D function.",
-    points: ["Operations", "Customer Service", "Leadership", "6 flagship offerings"],
+    desc: "We partner with organisations to strengthen existing L&D functions or build structured, long-term learning engagements where dedicated L&D capabilities are limited.",
+    points: ["Operational Excellence", "Customer Service Excellence", "Leadership Excellence", "Six flagship offerings"],
     pointIcons: [GearIcon, StarIcon, BriefcaseIcon, GridIcon],
     bestFor: "Capability that lasts beyond one-off workshops",
     icon: CompassIcon,
     visual: "orgTree",
   },
   {
-    slug: "signature-programmes",
+    slug: "executive-search",
     num: "04",
-    short: "Signature Programmes",
-    category: "Learning",
-    tone: "silver",
-    title: "Signature Learning Experiences",
-    tagline: "Focused, high-impact interventions.",
-    desc: "Experiential, one-off programmes for a specific capability gap.",
-    points: ["Communication", "Leadership", "Sales & Business Development", "Teams & Critical Thinking"],
-    pointIcons: [ChatIcon, BriefcaseIcon, TargetIcon, UsersIcon],
-    bestFor: "A specific gap or business priority",
-    icon: BookIcon,
-    visual: "bars",
+    short: "Hiring",
+    category: "Hiring",
+    tone: "gold",
+    title: "Hiring",
+    headline: ["", "Hiring"],
+    strap: "From executive search to bulk hiring.",
+    image: talentImg,
+    tagline: "The right talent, at every level.",
+    desc: "We help organisations attract, engage and hire the right people — from leadership and specialist roles to high-volume hiring — across GCCs, Technology & SaaS, BFSI & FinTech, and Product & Digital.",
+    points: ["Executive & Leadership Hiring", "Specialist & Critical Roles", "Bulk & Volume Hiring", "GCCs, Tech, BFSI & Digital"],
+    pointIcons: [BriefcaseIcon, StarIcon, UsersIcon, GlobeIcon],
+    bestFor: "Leadership, specialist and volume roles",
+    icon: UsersIcon,
+    visual: "people",
   },
   {
     slug: "customised-solutions",
@@ -117,8 +138,10 @@ export const services: Service[] = [
     category: "Learning",
     tone: "silver",
     title: "Customised Learning Solutions",
+    headline: ["Customised", "Learning Solutions"],
+    strap: "Bespoke programmes, built around you.",
     tagline: "Bespoke programmes, built around you.",
-    desc: "Bespoke programmes built around your people, context and goals.",
+    desc: "Bespoke learning programmes designed around organisational needs, capability gaps and specific business objectives — tailored to the audience, context and outcomes you want to achieve.",
     points: ["Your capability gaps", "Your audience", "Your business context", "Your outcomes"],
     pointIcons: [SearchIcon, UsersIcon, HeartIcon, TargetIcon],
     bestFor: "Needs a standard programme can’t cover",
