@@ -11,8 +11,8 @@ import { serviceHref, serviceSubItems } from "@/lib/content/services";
 import { logos, primaryNav, routes } from "@/lib/site";
 import { WhatsAppLink } from "./WhatsAppLink";
 
-/** The four featured services (same order as the hero cards). */
-const navServices = heroServices.slice(0, 4);
+/** All five services (same order as the hero cards). */
+const navServices = heroServices;
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -186,7 +186,8 @@ export function Header() {
   );
 }
 
-/** Desktop "Services" item: opens on hover or click, closes on Escape, outside click or picking a link. */
+/** Desktop "Services" item: clicking goes to the services page; the panel opens on hover or keyboard focus
+ * and closes on Escape, outside click or picking a link. */
 function ServicesDropdown({ active }: { active: boolean }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -211,12 +212,13 @@ function ServicesDropdown({ active }: { active: boolean }) {
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
       onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setOpen(false)}
       onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}
     >
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
+      <Link
+        href={routes.services}
+        aria-current={pathname === routes.services ? "page" : undefined}
         aria-expanded={open}
         aria-controls={panelId}
         className={cn(
@@ -227,7 +229,7 @@ function ServicesDropdown({ active }: { active: boolean }) {
       >
         Services
         <ChevronDownIcon size={14} className={cn("transition-transform duration-200", open && "rotate-180")} />
-      </button>
+      </Link>
 
       {/* pt-3 bridges the gap so the panel stays open while the pointer moves onto it */}
       <div id={panelId} hidden={!open} className="absolute top-full left-1/2 w-[340px] -translate-x-1/2 pt-3">
@@ -286,12 +288,6 @@ function ServicesDropdown({ active }: { active: boolean }) {
               );
             })}
           </ul>
-          <Link
-            href={routes.services}
-            className="mt-1 flex items-center justify-between rounded-[14px] border-t border-white/10 px-2.5 pt-3 pb-2 text-xs font-semibold tracking-[0.04em] text-gold hover:text-gold-light"
-          >
-            View all services <ArrowUpRightIcon size={14} />
-          </Link>
         </div>
       </div>
     </div>

@@ -4,13 +4,6 @@ import { Globe } from "./Globe";
 import { HeroServices } from "./HeroServices";
 import { StarField } from "./StarField";
 
-/** Tiny angled words floating around the globe (desktop only). */
-const orbitLabels = [
-  { text: "Structured", className: "left-[calc(50%-325px)] top-[250px] -rotate-[38deg]" },
-  { text: "Outcome-focused", className: "left-[calc(50%+210px)] top-[742px] -rotate-[28deg]" },
-  { text: "Flexible", className: "left-[calc(50%-110px)] top-[790px] rotate-[8deg]" },
-];
-
 export function Hero() {
   return (
     <section aria-label="Introduction" className="relative isolate overflow-hidden">
@@ -62,29 +55,9 @@ export function Hero() {
           </div>
         </div>
 
-        {orbitLabels.map((l) => (
-          <span
-            key={l.text}
-            aria-hidden="true"
-            className={`absolute hidden text-[13px] tracking-[0.08em] text-muted xl:block ${l.className}`}
-          >
-            {l.text}
-          </span>
-        ))}
-
         {/* ---- Service cards (floating on desktop, grid on mobile) -------- */}
         <HeroServices />
 
-        {/* ---- Scroll cue ------------------------------------------------- */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-9 left-14 hidden items-center gap-3 text-xs tracking-[0.14em] text-muted uppercase xl:flex"
-        >
-          <span className="flex h-10 w-[26px] justify-center rounded-[13px] border border-cream/30 pt-2">
-            <span className="h-2 w-[3px] animate-pulse-soft rounded-sm bg-cream" />
-          </span>
-          Scroll to explore
-        </div>
       </div>
     </section>
   );
