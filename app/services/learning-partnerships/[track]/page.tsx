@@ -3,12 +3,15 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/home/CtaBanner";
 import { ArrowRightIcon } from "@/components/icons";
+import { BrochureButton } from "@/components/services/BrochureButton";
 import { FlowBody, LinkCards, TrackBody } from "@/components/services/ServiceDetailBlocks";
+import { DownloadIcon } from "@/components/services/trainingIcons";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { Container, Eyebrow, PillLink, SectionTitle } from "@/components/ui";
+import { getBrochure } from "@/lib/content/brochures";
 import {
   PARTNERSHIPS_SLUG,
   getPartnershipTrack,
@@ -84,6 +87,16 @@ async function TrackDetail({ params }: { params: Params }) {
             Book a consultation
           </PillLink> */}
           <WhatsAppLink variant="light" size="lg" message={enquiryMessage(t.title)} />
+          {getBrochure(t.id) && (
+            <BrochureButton
+              offering={t.id}
+              title={t.title}
+              className="inline-flex h-[52px] items-center gap-2 rounded-full border border-gold/50 px-6 text-[15px] font-semibold text-cream transition duration-200 hover:-translate-y-px hover:border-gold"
+            >
+              <DownloadIcon size={16} className="text-gold" />
+              Download Brochure
+            </BrochureButton>
+          )}
         </div>
       </PageHero>
 

@@ -17,15 +17,18 @@ type Props = {
   aside?: ReactNode;
   /** Vertical alignment of the two columns when `aside` is set. Defaults to "center". */
   asideAlign?: "center" | "start";
+  /** Extra decoration layered behind the content, over the star field. */
+  backdrop?: ReactNode;
 };
 
 /** Inner-page hero: star field, gold glow, wire globe, breadcrumb and title. */
-export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideAlign = "center" }: Props) {
+export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideAlign = "center", backdrop }: Props) {
   return (
     <section className="relative isolate overflow-hidden border-b border-white/12">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <StarField className="absolute inset-0 size-full" />
         <div className="absolute -top-[200px] left-[calc(50%-20px)] size-[620px] rounded-full bg-[radial-gradient(closest-side,rgba(230,171,63,0.11),transparent)] md:size-[900px]" />
+        {backdrop}
       </div>
 
       {!aside && (

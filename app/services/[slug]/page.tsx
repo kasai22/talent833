@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/home/CtaBanner";
 import { ArrowRightIcon } from "@/components/icons";
+import { CapabilityBuilding } from "@/components/services/CapabilityBuilding";
+import { CorporateTraining } from "@/components/services/CorporateTraining";
+import { FractionalLd } from "@/components/services/FractionalLd";
 import { ServiceVisual } from "@/components/services/ServiceVisual";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -11,6 +14,9 @@ import { PageHero } from "@/components/site/PageHero";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
 import { Container, Eyebrow, PillLink, SectionTitle } from "@/components/ui";
 import { ServiceDetailBlocks, Tiles } from "@/components/services/ServiceDetailBlocks";
+import { CAPABILITY_BUILDING_SLUG } from "@/lib/content/capabilityBuilding";
+import { CORPORATE_TRAINING_SLUG } from "@/lib/content/corporateTraining";
+import { FRACTIONAL_LD_SLUG } from "@/lib/content/fractionalLd";
 import { serviceDetails } from "@/lib/content/serviceDetails";
 import { getService, serviceHref, services, type Service } from "@/lib/content/services";
 import { enquiryMessage, routes } from "@/lib/site";
@@ -45,6 +51,21 @@ async function ServiceDetail({ params }: Pick<PageProps<"/services/[slug]">, "pa
   const service = getService((await params).slug);
   if (!service) notFound();
   const detail = serviceDetails[service.slug];
+
+  // Bespoke layouts; the other services use the generic hero + detail blocks below.
+  const Bespoke = {
+    [CORPORATE_TRAINING_SLUG]: CorporateTraining,
+    [FRACTIONAL_LD_SLUG]: FractionalLd,
+    [CAPABILITY_BUILDING_SLUG]: CapabilityBuilding,
+  }[service.slug];
+  if (Bespoke) {
+    return (
+      <>
+        <Bespoke />
+        <OtherServices current={service} />
+      </>
+    );
+  }
 
   return (
     <>

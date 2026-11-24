@@ -26,26 +26,29 @@ export const about = {
 /** About page hero only. `about` above still feeds the home page "Who we are" block. */
 export const aboutHero = {
   eyebrow: "About Talent833 Partners",
-  title: "Capability is built by people. We start there.",
-  /** Each paragraph is a list of runs; `{ mark }` runs get the viewfinder focus highlight. */
-  body: [
-    [
-      "Talent833 Partners helps organisations build the capability they need and hire the talent that will carry it forward. ",
-      {
-        mark: "We bring learning and hiring together because the strongest organisations grow both at once: people who keep developing, and leaders who are chosen with care.",
-      },
-    ],
-    [
-      "From fractional L&D leadership and year-long learning partnerships to signature programmes and executive search, our work is structured, outcome-focused and flexible enough to fit where your business actually is. With teams across India, ",
-      { mark: "we work as an extension of yours, not as a vendor on the sidelines." },
-    ],
-  ] satisfies Array<Array<string | { mark: string }>>,
-  beliefsLead: "Everything we do rests on three beliefs.",
+  /** The title is set in two lines; `titleAccent` is the gold italic second line. */
+  titleLead: "Capability is built by people.",
+  titleAccent: "We start there.",
+  intro:
+    "Talent833 Partners helps organisations build the capability they need and hire the talent that will carry it forward.",
+  /** Pull quote runs: `{ strong }` is set bright and bold, `{ gold }` in gold. */
+  quote: [
+    "We bring ",
+    { strong: "learning" },
+    " and ",
+    { strong: "hiring" },
+    " together because the strongest organisations ",
+    { gold: "grow both" },
+    " at once: ",
+    { gold: "people" },
+    " who keep developing, and leaders who are chosen with care.",
+  ] satisfies Array<string | { strong: string } | { gold: string }>,
   philosophiesTitle: "Our Philosophies",
   philosophies: [
     {
       number: "01",
       area: "Learning",
+      icon: "book",
       tagline: "Break the Routine. Rethink the Experience.",
       belief: "We believe people learn by doing, not by sitting through slides.",
       detail:
@@ -54,6 +57,7 @@ export const aboutHero = {
     {
       number: "02",
       area: "Capability Building",
+      icon: "users",
       tagline: "An Eagle's Eye. A Human-Centred Lens.",
       belief: "We believe capability grows where strategy meets people.",
       detail:
@@ -62,12 +66,13 @@ export const aboutHero = {
     {
       number: "03",
       area: "Talent Acquisition",
+      icon: "handshake",
       tagline: "Beyond the Resume. Into What Makes a Person.",
       belief: "We believe a resume tells you where someone has been, not who they are.",
       detail:
         "We look at how people think, what drives them and what they could bring to a role, so every hire is a match of person to purpose, not just profile to job description.",
     },
-  ],
+  ] satisfies Array<{ icon: "book" | "users" | "handshake" } & Record<string, string>>,
 };
 
 /** Each `body` paragraph is a list of runs; `{ strong }` runs are set in bold. */

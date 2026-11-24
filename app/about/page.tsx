@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import { FocusMark } from "@/components/about/FocusMark";
+import { AboutHero } from "@/components/about/AboutHero";
 import { Portrait } from "@/components/about/Portrait";
 import { CtaBanner } from "@/components/home/CtaBanner";
-import { ChevronDownIcon, LinkedInIcon } from "@/components/icons";
+import { LinkedInIcon } from "@/components/icons";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
-import { PageHero } from "@/components/site/PageHero";
 import { Container, Eyebrow, PillLink, cn, surface } from "@/components/ui";
 import { aboutHero, founder } from "@/lib/content/about";
 import { stats } from "@/lib/content/home";
-import { routes } from "@/lib/site";
-
-const plainText = (runs: Array<string | { mark: string }>) =>
-  runs.map((r) => (typeof r === "string" ? r : r.mark)).join("");
 
 export const metadata: Metadata = {
   title: "About",
-  description: `${aboutHero.title} ${plainText(aboutHero.body[0]!)}`,
+  description: `${aboutHero.titleLead} ${aboutHero.titleAccent} ${aboutHero.intro}`,
 };
 
 export default function AboutPage() {
@@ -24,87 +19,7 @@ export default function AboutPage() {
     <>
       <Header />
       <main>
-        <PageHero
-          crumbs={[{ label: "Home", href: routes.home }, { label: "About" }]}
-          eyebrow={aboutHero.eyebrow}
-          title={aboutHero.title}
-          lede={
-            <div className="flex flex-col gap-4">
-              {aboutHero.body.map((runs, i) => (
-                <p key={i}>
-                  {runs.map((r, j) =>
-                    typeof r === "string" ? (
-                      r
-                    ) : (
-                      // Second phrase comes into focus after the first.
-                      <FocusMark key={j} delay={0.4 + i * 1.4}>
-                        {r.mark}
-                      </FocusMark>
-                    ),
-                  )}
-                </p>
-              ))}
-              <p className="font-semibold text-cream">{aboutHero.beliefsLead}</p>
-            </div>
-          }
-          asideAlign="start"
-          aside={
-            <div className="flex animate-rise flex-col gap-4 lg:gap-5">
-              <h2 className="font-display text-2xl font-medium tracking-[-0.02em] md:text-[28px]">
-                {aboutHero.philosophiesTitle}
-              </h2>
-              {/* Native exclusive accordion: details sharing a `name` close each other. */}
-              <ol className="flex flex-col gap-3 md:gap-4">
-                {aboutHero.philosophies.map((p, i) => (
-                  <li key={p.number}>
-                    <details
-                      name="philosophies"
-                      open={i === 0}
-                      className={cn(
-                        surface,
-                        "philosophy group rounded-[20px] transition-colors duration-300 open:border-gold/40 open:bg-gold/[0.06] hover:border-white/25 open:hover:border-gold/50",
-                      )}
-                    >
-                      <summary className="grid cursor-pointer list-none grid-cols-[auto_1fr_auto] items-center gap-x-4 rounded-[20px] p-5 md:gap-x-5 md:p-6 [&::-webkit-details-marker]:hidden">
-                        <span
-                          aria-hidden="true"
-                          className="font-display text-[28px] leading-none font-medium text-gold/60 transition-colors group-open:text-gold md:text-[32px]"
-                        >
-                          {p.number}
-                        </span>
-                        <span className="flex flex-col gap-1.5">
-                          <span className="text-xs font-bold tracking-[0.22em] text-gold uppercase">
-                            <span className="sr-only">{p.number}. </span>
-                            {p.area}
-                          </span>
-                          <span className="font-display text-lg leading-snug font-medium text-cream md:text-xl">
-                            {p.tagline}
-                          </span>
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="grid size-9 place-items-center rounded-full border border-white/15 text-cream transition duration-300 group-open:rotate-180 group-open:border-gold/50 group-open:bg-gold group-open:text-ink"
-                        >
-                          <ChevronDownIcon size={16} />
-                        </span>
-                      </summary>
-                      <div className="flex flex-col gap-2 px-5 pb-5 md:pr-6 md:pb-6 md:pl-[76px]">
-                        <p className="text-[15px] leading-relaxed font-semibold text-cream/90">{p.belief}</p>
-                        <p className="text-[15px] leading-relaxed text-mist">{p.detail}</p>
-                      </div>
-                    </details>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          }
-        >
-          {/* <div className="pt-2">
-            <PillLink href={routes.contact} variant="gold" size="lg">
-              Book a consultation
-            </PillLink>
-          </div> */}
-        </PageHero>
+        <AboutHero />
 
         {/* Founder */}
         <section aria-labelledby="founder-title" className="py-14 md:py-20 xl:py-[110px]">
