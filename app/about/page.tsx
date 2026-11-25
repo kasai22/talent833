@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AboutHero } from "@/components/about/AboutHero";
 import { Portrait } from "@/components/about/Portrait";
 import { CtaBanner } from "@/components/home/CtaBanner";
-import { LinkedInIcon } from "@/components/icons";
+import { ChevronDownIcon, LinkedInIcon } from "@/components/icons";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { Container, Eyebrow, PillLink, cn, surface } from "@/components/ui";
@@ -14,6 +14,26 @@ export const metadata: Metadata = {
   description: `${aboutHero.titleLead} ${aboutHero.titleAccent} ${aboutHero.intro}`,
 };
 
+/** Founder bio paragraphs shown before "Read more". */
+const FOUNDER_PREVIEW = 2;
+
+/** One bio paragraph; `{ strong }` runs are set bright and bold. */
+function BioParagraph({ runs }: { runs: (typeof founder.body)[number] }) {
+  return (
+    <p>
+      {runs.map((r, j) =>
+        typeof r === "string" ? (
+          r
+        ) : (
+          <strong key={j} className="font-semibold text-cream">
+            {r.strong}
+          </strong>
+        ),
+      )}
+    </p>
+  );
+}
+
 export default function AboutPage() {
   return (
     <>
@@ -22,10 +42,11 @@ export default function AboutPage() {
         <AboutHero />
 
         {/* Founder */}
-        <section aria-labelledby="founder-title" className="py-14 md:py-20 xl:py-[110px]">
-          {/* On lg+ the text is sized compactly so its column ends level with the portrait beside it. */}
-          <Container className="grid items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10 xl:gap-14">
-            <div className="relative mx-auto w-full max-w-[460px] lg:max-w-none">
+        {/* overflow-x-clip: the portrait glow bleeds past the container edge on phones. */}
+        <section aria-labelledby="founder-title" className="overflow-x-clip py-14 md:py-20 xl:py-[110px]">
+          {/* From lg the portrait stays in view while the biography scrolls beside it. */}
+          <Container className="grid items-start gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 xl:gap-16">
+            <div className="relative mx-auto w-full max-w-[460px] lg:sticky lg:top-10 lg:max-w-none">
               <div
                 aria-hidden="true"
                 className="absolute -inset-6 -z-10 rounded-[32px] bg-[radial-gradient(closest-side,rgba(230,171,63,0.16),transparent)]"
@@ -37,54 +58,45 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5 lg:gap-2 xl:gap-3.5 min-[87.5rem]:gap-4">
+            <div className="flex max-w-[680px] flex-col gap-5 lg:pt-2">
               <Eyebrow>{founder.eyebrow}</Eyebrow>
-              <div className="flex flex-col gap-0.5">
-                <p className="font-display text-2xl font-medium lg:text-lg xl:text-2xl">{founder.name}</p>
-                <p className="text-sm text-gold italic lg:text-[13px] xl:text-sm">{founder.role}</p>
-                <p className="text-sm text-muted italic lg:text-[13px] xl:text-sm">{founder.alsoKnownAs}</p>
+              <div className="flex flex-col gap-1">
+                <p className="font-display text-2xl font-medium">{founder.name}</p>
+                <p className="text-sm text-gold italic">{founder.role}</p>
+                <p className="text-sm text-muted italic">{founder.alsoKnownAs}</p>
               </div>
               <h2
                 id="founder-title"
-                className="font-display text-[28px] leading-[1.15] font-medium tracking-[-0.02em] text-balance md:text-[32px] lg:text-lg xl:text-[24px] min-[87.5rem]:text-[28px]"
+                className="font-display text-[26px] leading-[1.18] font-medium tracking-[-0.02em] text-balance md:text-[30px] xl:text-[32px]"
               >
                 {founder.title}
               </h2>
-              <div className="flex flex-col gap-3 text-[15px] leading-[1.65] text-mist lg:gap-1.5 lg:text-[13px] lg:leading-normal xl:gap-2 xl:text-sm xl:leading-[1.55] min-[87.5rem]:gap-2.5 min-[87.5rem]:text-[15px] min-[87.5rem]:leading-[1.65]">
-                {founder.body.map((runs, i) => (
-                  <p key={i}>
-                    {runs.map((r, j) =>
-                      typeof r === "string" ? (
-                        r
-                      ) : (
-                        <strong key={j} className="font-semibold text-cream">
-                          {r.strong}
-                        </strong>
-                      ),
-                    )}
-                  </p>
+              <div className="flex flex-col gap-4 text-[15px] leading-[1.7] text-mist md:text-base">
+                {founder.body.slice(0, FOUNDER_PREVIEW).map((runs, i) => (
+                  <BioParagraph key={i} runs={runs} />
                 ))}
               </div>
-              <p className="font-display text-lg leading-snug font-medium text-gold lg:text-base xl:text-lg">
-                {founder.closing}
-              </p>
-              <div className="flex flex-col gap-3 border-t border-white/12 pt-5 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:pt-2.5 xl:pt-3.5 min-[87.5rem]:pt-4">
+              {/* The rest of the bio stays folded until the reader asks for it. */}
+              <details className="group flex flex-col">
+                <summary className="flex w-fit cursor-pointer list-none items-center gap-2 font-bold text-gold transition-colors hover:text-cream [&::-webkit-details-marker]:hidden">
+                  <span className="group-open:hidden">Read more</span>
+                  <span className="hidden group-open:inline">Read less</span>
+                  <ChevronDownIcon size={16} className="transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="mt-4 flex flex-col gap-4 text-[15px] leading-[1.7] text-mist md:text-base">
+                  {founder.body.slice(FOUNDER_PREVIEW).map((runs, i) => (
+                    <BioParagraph key={i} runs={runs} />
+                  ))}
+                  <p className="font-display text-lg leading-snug font-medium text-gold md:text-xl">{founder.closing}</p>
+                </div>
+              </details>
+              <div className="mt-2 flex flex-col items-start gap-4 border-t border-white/12 pt-6">
                 <div className="flex flex-col gap-1">
-                  <p className="font-display text-lg font-medium text-cream italic lg:text-base xl:text-lg">
-                    {founder.cta.title}
-                  </p>
-                  <p className="text-[15px] leading-[1.6] text-mist lg:text-[13px] xl:text-sm min-[87.5rem]:text-[15px]">
-                    {founder.cta.body}
-                  </p>
+                  <p className="font-display text-lg font-medium text-cream italic">{founder.cta.title}</p>
+                  <p className="text-[15px] leading-[1.6] text-mist">{founder.cta.body}</p>
                 </div>
                 {founder.linkedin && (
-                  <PillLink
-                    href={founder.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="outline"
-                    className="w-fit shrink-0 lg:h-10 lg:px-4 lg:text-[13px] xl:h-[46px] xl:px-[22px] xl:text-[15px]"
-                  >
+                  <PillLink href={founder.linkedin} target="_blank" rel="noopener noreferrer" variant="outline">
                     <LinkedInIcon size={16} className="text-gold" />
                     Connect on LinkedIn
                     <span className="sr-only"> (opens in a new tab)</span>

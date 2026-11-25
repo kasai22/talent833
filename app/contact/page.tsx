@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { ArrowUpRightIcon, MailIcon, PhoneIcon, PinIcon, UsersIcon, WhatsAppIcon } from "@/components/icons";
+import { ArrowDownIcon, ArrowUpRightIcon, LinkedInIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "@/components/icons";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
-import { Container, Eyebrow, cn, surface } from "@/components/ui";
+import { Container, Eyebrow, cn, pillClass, surface } from "@/components/ui";
 import { contact, routes, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ const channels: Channel[] = [
     label: "LinkedIn",
     value: "Talent 833 Partners",
     href: contact.linkedin,
-    icon: <UsersIcon size={20} />,
+    icon: <LinkedInIcon size={20} />,
     external: true,
   },
 ];
@@ -51,15 +51,19 @@ export default function ContactPage() {
           }
           lede="Whether you're hiring a leader, planning a year of learning or looking for a single programme, tell us what you need. We usually respond within one working day."
         >
+          {/* One primary action (WhatsApp, the fastest reply), the form as the alternative, phone as a quiet link. */}
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <WhatsAppLink variant="gold" size="lg" />
-            <a
-              href={contact.phoneHref}
-              className="flex h-[52px] items-center gap-2 px-3 font-semibold text-mist transition-colors hover:text-gold"
-            >
-              <PhoneIcon size={18} /> {contact.phone}
+            <a href="#enquiry" className={pillClass({ variant: "outline", size: "lg" })}>
+              Send an enquiry <ArrowDownIcon size={16} />
             </a>
           </div>
+          <a
+            href={contact.phoneHref}
+            className="flex min-h-10 w-fit items-center gap-2 text-[15px] font-semibold text-mist transition-colors hover:text-gold"
+          >
+            <PhoneIcon size={18} /> Or call {contact.phone}
+          </a>
         </PageHero>
 
         <section aria-label="Get in touch" className="py-14 md:py-20 xl:py-[100px]">
@@ -80,7 +84,7 @@ export default function ContactPage() {
                       {...(c.external && { target: "_blank", rel: "noopener noreferrer" })}
                       className={cn(
                         surface,
-                        "group flex items-center gap-4 rounded-[18px] p-4 transition hover:border-gold/45 md:p-5",
+                        "group flex items-center gap-4 rounded-card p-4 transition hover:border-gold/45 md:p-5",
                       )}
                     >
                       <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-gold/12 text-gold">
@@ -93,12 +97,13 @@ export default function ContactPage() {
                         </span>
                       </span>
                       <ArrowUpRightIcon size={16} className="shrink-0 text-muted group-hover:text-gold" />
+                      {c.external && <span className="sr-only"> (opens in a new tab)</span>}
                     </a>
                   </li>
                 ))}
               </ul>
 
-              <div className={cn(surface, "flex flex-col gap-4 rounded-[18px] p-5 md:p-6")}>
+              <div className={cn(surface, "flex flex-col gap-4 rounded-card p-5 md:p-6")}>
                 <span className="flex items-center gap-2.5 text-xs font-bold tracking-[0.16em] text-muted uppercase">
                   <PinIcon size={16} className="text-gold" /> Where we work
                 </span>

@@ -29,7 +29,7 @@ export function WhatsAppLink({ message, label = "Connect on WhatsApp", variant =
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -top-0.5 -right-0.5 size-2.5 animate-pulse-soft rounded-full border-2 bg-[#25D366]",
+            "absolute -top-0.5 -right-0.5 size-2.5 rounded-full border-2 bg-[#25D366]",
             variant === "gold" ? "border-gold" : variant === "light" ? "border-cream" : "border-ink",
           )}
         />

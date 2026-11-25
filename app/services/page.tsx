@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CtaBanner } from "@/components/home/CtaBanner";
 import { ServiceBand, ServiceCard } from "@/components/services/ServiceCard";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
@@ -26,9 +25,17 @@ export default function ServicesPage() {
         <PageHero
           crumbs={[{ label: "Home", href: routes.home }, { label: "Services" }]}
           eyebrow="Our services"
-          title="Executive hiring and learning solutions, under one roof."
-          lede="Use one service, or combine them into a single partnership."
-        />
+          title={
+            <>
+              <span className="block font-semibold">Discover solutions</span>
+              <span className="mt-1 block text-[28px] leading-[1.1] font-normal tracking-[-0.02em] md:text-[40px] xl:text-[48px]">
+                that move businesses forward.
+              </span>
+            </>
+          }
+        >
+          <span aria-hidden="true" className="mt-3 block h-1 w-28 rounded-full bg-gold" />
+        </PageHero>
 
         <section aria-label="Our services" className="py-14 md:py-20">
           <Container className="flex flex-col gap-4 md:gap-5">
@@ -44,8 +51,6 @@ export default function ServicesPage() {
             ))}
           </Container>
         </section>
-
-        <CtaBanner />
       </main>
       <Footer />
     </>

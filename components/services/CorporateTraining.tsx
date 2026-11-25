@@ -1,11 +1,10 @@
-import Image from "next/image";
-import { ArrowRight } from "@/components/services/trainingIcons";
-import { GoldCta, PageBackdrop, RuleHeading, darkPanel, goldPanel, iconTile } from "@/components/services/trainingUi";
-import { Container, Eyebrow, cn } from "@/components/ui";
+import { PageBackdrop, RuleHeading, darkPanel, goldPanel, iconTile } from "@/components/services/trainingUi";
+import { WhatsAppLink } from "@/components/site/WhatsAppLink";
+import { Breadcrumbs, Container, Eyebrow, cn } from "@/components/ui";
 import { corporateTraining as ct } from "@/lib/content/corporateTraining";
-import { logos, routes } from "@/lib/site";
+import { enquiryMessage, routes } from "@/lib/site";
 
-/** Corporate Training page body: intro, the two programme panels, other offerings and the customised banner. */
+/** Corporate Training page body: intro, the two programme panels and other offerings. */
 export function CorporateTraining() {
   const Comm = ct.communication.icon;
   const Lead = ct.leadership.icon;
@@ -17,6 +16,7 @@ export function CorporateTraining() {
       <Container className="flex flex-col gap-10 pt-[120px] pb-16 md:gap-12 md:pt-[150px] md:pb-20 xl:pb-24">
         {/* Intro */}
         <header className="flex max-w-[1240px] animate-rise flex-col gap-5">
+          <Breadcrumbs crumbs={[{ label: "Home", href: routes.home }, { label: "Services", href: routes.services }, { label: "Corporate Training" }]} />
           <Eyebrow>{ct.eyebrow}</Eyebrow>
           <h1
             id="ct-title"
@@ -28,6 +28,13 @@ export function CorporateTraining() {
           <p className="max-w-[920px] border-l-2 border-gold pl-5 text-[15px] leading-relaxed text-cream/85 italic md:text-base">
             {ct.note}
           </p>
+          <WhatsAppLink
+            variant="gold"
+            size="lg"
+            label="Enquire on WhatsApp"
+            message={enquiryMessage("Corporate Training")}
+            className="mt-1 w-fit"
+          />
         </header>
 
         {/* Programme panels */}
@@ -93,40 +100,6 @@ export function CorporateTraining() {
             ))}
           </ul>
         </div>
-
-        {/* Customised banner */}
-        <aside
-          aria-labelledby="ct-custom"
-          className="relative isolate grid items-center gap-6 overflow-hidden rounded-[28px] border border-gold/35 bg-gradient-to-r from-gold/[0.12] via-white/[0.03] to-gold/[0.06] p-6 md:grid-cols-[minmax(0,300px)_1fr] md:gap-x-10 md:p-8 xl:grid-cols-[auto_minmax(0,300px)_1fr_auto] xl:py-6"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute -bottom-24 -left-24 -z-10 size-72 rounded-full bg-[radial-gradient(closest-side,rgba(230,171,63,0.35),transparent)]"
-          />
-          <div className="relative hidden size-36 place-items-center xl:grid">
-            <div aria-hidden="true" className="absolute inset-3 rounded-full border border-gold/30 bg-gold/10 blur-[1px]" />
-            <Image
-              src={ct.customised.image ?? logos.mark.src}
-              alt=""
-              width={ct.customised.image ? 144 : 80}
-              height={ct.customised.image ? 144 : Math.round((80 * logos.mark.height) / logos.mark.width)}
-              className="relative drop-shadow-[0_0_18px_rgba(230,171,63,0.45)]"
-            />
-          </div>
-          <h2
-            id="ct-custom"
-            className="border-l-2 border-gold pl-5 font-display text-[28px] leading-[1.1] font-semibold tracking-[-0.02em] md:text-[34px]"
-          >
-            {ct.customised.title}
-          </h2>
-          <p className="text-[15px] leading-relaxed text-mist md:border-l md:border-white/15 md:pl-8">
-            {ct.customised.body}
-          </p>
-          <GoldCta href={routes.contact} className="md:col-start-2 xl:col-start-auto">
-            {ct.customised.cta}
-            <ArrowRight size={18} />
-          </GoldCta>
-        </aside>
       </Container>
     </section>
   );

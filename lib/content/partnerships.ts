@@ -61,9 +61,15 @@ export type FocusTrack = TrackBase & {
   /** One sentence. */
   intro: string;
   focusTitle: string;
+  /** What the focus items are called in the hub count; defaults to "focus areas". */
+  focusUnit?: string;
   focus: DetailItem[];
   outcome?: string;
+  /** Short labels for the outcome bar chart, rising left to right. */
+  outcomePoints?: string[];
   closing?: string;
+  /** Before → after comparison drawn as a bridge (campus-to-corporate only). */
+  bridge?: { title: string; from: { label: string; points: string[] }; to: { label: string; points: string[] } };
 };
 
 export type PartnershipTrack = FlowTrack | FocusTrack;
@@ -138,6 +144,7 @@ export const partnershipTracks: PartnershipTrack[] = [
       { title: "Train-the-Trainer", icon: MicIcon, bullets: ["Internal facilitators", "Reinforcement"] },
     ],
     outcome: "Confident teams, stronger sales, consistent stores, happier customers.",
+    outcomePoints: ["Confident teams", "Stronger sales", "Consistent stores", "Happier customers"],
   },
   {
     kind: "track",
@@ -158,6 +165,7 @@ export const partnershipTracks: PartnershipTrack[] = [
       { title: "Process & Teamwork", icon: GearIcon, bullets: ["SOP compliance", "Team coordination"] },
     ],
     outcome: "An empathetic workforce with consistent patient care, teamwork and leadership.",
+    outcomePoints: ["Empathetic staff", "Stronger teamwork", "Capable leaders", "Consistent patient care"],
   },
   {
     kind: "track",
@@ -178,6 +186,7 @@ export const partnershipTracks: PartnershipTrack[] = [
       { title: "Operational Excellence", icon: GearIcon, bullets: ["SOP compliance", "Quality standards"] },
     ],
     outcome: "Service-minded teams delivering consistent, memorable guest experiences.",
+    outcomePoints: ["Service-minded teams", "Consistent standards", "Confident supervisors", "Memorable stays"],
   },
   {
     kind: "track",
@@ -190,6 +199,7 @@ export const partnershipTracks: PartnershipTrack[] = [
     kicker: "A 12-month partnership, frontline to CXO",
     intro: "We run your communication development cycle: find the gaps, build skills, reinforce and measure.",
     focusTitle: "Our communication learning offerings",
+    focusUnit: "offerings",
     focus: [
       { title: "Business Communication", icon: PenIcon, bullets: ["Writing", "Presentations"] },
       { title: "Interpersonal Skills", icon: HeartIcon, bullets: ["Active listening", "Workplace etiquette"] },
@@ -199,6 +209,7 @@ export const partnershipTracks: PartnershipTrack[] = [
       { title: "Custom Programmes", icon: SearchIcon, bullets: ["Role-specific", "Gap-based"] },
     ],
     outcome: "Clear, confident communication at every level, inside and outside the organisation.",
+    outcomePoints: ["Clear messages", "Better collaboration", "Confident presence", "Every level aligned"],
     closing: "One organisation. Every level. One year.",
   },
   {
@@ -211,12 +222,19 @@ export const partnershipTracks: PartnershipTrack[] = [
     headline: "From campus to corporate, ready on day one.",
     intro: "Employability programmes that build confident, workplace-ready graduates.",
     focusTitle: "Our programmes",
+    focusUnit: "programmes",
     focus: [
       { title: "90-Day Fast Track", icon: StarIcon, body: "Confidence, communication and professional skills." },
       { title: "One-Year Programme", icon: CapIcon, body: "A full academic year of workplace readiness." },
       { title: "Interview Readiness", icon: MicIcon, bullets: ["Find Your Voice", "Find Your Expression", "Find Your Edge"] },
       { title: "Custom Campus Programmes", icon: SearchIcon, body: "Built around your placement goals." },
     ],
+    // Draft copy — review before launch.
+    bridge: {
+      title: "Bridging campus and corporate",
+      from: { label: "On campus", points: ["Academic knowledge", "Little workplace exposure", "Interview nerves"] },
+      to: { label: "Day one at work", points: ["Professional confidence", "Clear communication", "Workplace etiquette", "Interview-ready"] },
+    },
   },
 ];
 

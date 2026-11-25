@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { logos } from "@/lib/site";
+import { ArrowRightIcon } from "@/components/icons";
+import { PillLink, cn } from "@/components/ui";
+import { logos, routes } from "@/lib/site";
 import { Globe } from "./Globe";
 import { HeroServices } from "./HeroServices";
 import { StarField } from "./StarField";
@@ -37,28 +39,46 @@ export function Hero() {
               height={logos.full.height}
               alt="Talent833 HR Services"
               className="h-auto w-[170px] md:w-[230px] xl:w-[300px]"
-              preload
+              loading="eager"
+              fetchPriority="high"
             />
-            {/* Brand tagline (kept out of the logo file) — always a single line */}
-            <p className="flex items-center gap-x-1.5 text-[9px] font-semibold whitespace-nowrap text-white [text-shadow:0_0_10px_#000,0_0_18px_#000] md:gap-x-2.5 md:text-[13px] xl:gap-x-3 xl:text-[15px]">
-              {["Corporate Training", "Capability Development", "Executive & Bulk Hiring"].map((item, i) => (
-                <span key={item} className="flex items-center gap-x-1.5 md:gap-x-2.5 xl:gap-x-3">
-                  {i > 0 && <span aria-hidden="true" className="h-[1.1em] w-0.5 bg-gold" />}
-                  {item}
-                </span>
-              ))}
-            </p>
-            <span className="hidden animate-pulse-soft items-center gap-2 text-[13px] text-muted xl:flex">
-              <span className="size-1.5 rounded-full bg-gold" aria-hidden="true" />
-              Tap a card to explore what we do
-            </span>
+            {/* Brand tagline (kept out of the logo file): one line inside the globe from md up */}
+            <Tagline className="hidden md:flex md:whitespace-nowrap" />
+            {/* The primary next step, centred in the globe at every size. */}
+            <PillLink href={routes.services} variant="gold" className="mt-2 md:mt-3">
+              Explore our services <ArrowRightIcon size={16} />
+            </PillLink>
           </div>
         </div>
+
+        {/* Phones: the tagline sits under the globe and wraps at a readable size. */}
+        <Tagline className="mx-auto -mt-2 flex max-w-[360px] flex-wrap justify-center gap-y-1.5 px-5 text-center md:hidden" />
 
         {/* ---- Service cards (floating on desktop, grid on mobile) -------- */}
         <HeroServices />
 
       </div>
     </section>
+  );
+}
+
+const taglineItems = ["Corporate Training", "Capability Development", "Executive & Bulk Hiring"];
+
+function Tagline({ className }: { className?: string }) {
+  return (
+    <p
+      className={cn(
+        "items-center gap-x-2.5 text-[13px] font-semibold text-white [text-shadow:0_0_10px_#000,0_0_18px_#000] xl:gap-x-3 xl:text-[15px]",
+        className,
+      )}
+    >
+      {taglineItems.map((item, i) => (
+        // The divider sticks to the item before it, so a wrapped line never starts with one.
+        <span key={item} className="flex items-center gap-x-2.5 whitespace-nowrap xl:gap-x-3">
+          {item}
+          {i < taglineItems.length - 1 && <span aria-hidden="true" className="h-[1.1em] w-0.5 bg-gold" />}
+        </span>
+      ))}
+    </p>
   );
 }

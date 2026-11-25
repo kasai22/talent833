@@ -164,6 +164,12 @@ export const ArrowRightIcon = (p: IconProps) => (
   </Icon>
 );
 
+export const ArrowDownIcon = (p: IconProps) => (
+  <Icon strokeWidth={2} {...p}>
+    <path d="M12 5v14M6 13l6 6 6-6" />
+  </Icon>
+);
+
 /** Filled WhatsApp glyph (brand mark, so it doesn't use the outline Icon wrapper). */
 export const WhatsAppIcon = ({ size = 24, ...rest }: IconProps) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" {...rest}>

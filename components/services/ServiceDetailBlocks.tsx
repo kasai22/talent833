@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { ComponentType, ReactNode } from "react";
 import { ArrowRightIcon, CheckIcon, type IconProps } from "@/components/icons";
-import { Container, Eyebrow, PillLink, SectionTitle, cn, surface } from "@/components/ui";
-import type { DetailItem, FlowTrack, FocusTrack } from "@/lib/content/partnerships";
+import { Container, Eyebrow, PillLink, SectionTitle, cn } from "@/components/ui";
+import type { DetailItem, FlowTrack } from "@/lib/content/partnerships";
 import type { DetailBlock } from "@/lib/content/serviceDetails";
 import { routes } from "@/lib/site";
 
@@ -158,32 +158,6 @@ export function FlowBody({ t }: { t: FlowTrack }) {
           <Dots points={t.outcome.points} />
         </div>
       </div>
-      {/* <BookConsultation /> */}
-    </Section>
-  );
-}
-
-/** Offering page body: focus areas, outcome and CTA. */
-export function TrackBody({ t }: { t: FocusTrack }) {
-  const titleId = `${t.id}-focus`;
-  return (
-    <Section labelledBy={titleId}>
-      <div className="flex flex-col gap-[18px]">
-        <Eyebrow>{t.short}</Eyebrow>
-        <SectionTitle id={titleId}>{t.focusTitle}</SectionTitle>
-      </div>
-      <ItemGrid items={t.focus} />
-      {(t.outcome || t.closing) && (
-        <div className={cn(surface, "flex flex-col gap-3 rounded-[20px] p-6 md:rounded-3xl md:p-8")}>
-          {t.outcome && (
-            <>
-              <Eyebrow>The partnership outcome</Eyebrow>
-              <p className="font-display text-xl leading-snug font-medium md:text-2xl">{t.outcome}</p>
-            </>
-          )}
-          {t.closing && <p className="font-semibold text-gold">{t.closing}</p>}
-        </div>
-      )}
       {/* <BookConsultation /> */}
     </Section>
   );

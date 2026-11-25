@@ -7,8 +7,9 @@ export const routes = {
   home: "/",
   about: "/about",
   services: "/services",
-  training: "/training",
-  clients: "/clients",
+  /** Training programmes live on the Corporate Training service page (there is no separate /training page;
+   *  /training redirects there — see next.config.ts). */
+  training: "/services/signature-programmes",
   contact: "/contact",
 } as const;
 

@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { ArrowUpRight, CheckMark } from "@/components/services/trainingIcons";
 import { GoldCta, PageBackdrop, RuleHeading, darkPanel, goldPanel, iconTile } from "@/components/services/trainingUi";
-import { Container, Eyebrow, cn } from "@/components/ui";
+import { Breadcrumbs, Container, Eyebrow, cn } from "@/components/ui";
 import { fractionalLd as f } from "@/lib/content/fractionalLd";
-import { logos, routes } from "@/lib/site";
+import { routes } from "@/lib/site";
 
-/** Fractional L&D page body: hero, fit check, offerings, value + engagement models and the closing banner. */
+/** Fractional L&D page body: hero, fit check, offerings, value + engagement models. */
 export function FractionalLd() {
   return (
     <section aria-labelledby="fl-title" className="relative isolate overflow-hidden">
@@ -15,6 +14,7 @@ export function FractionalLd() {
         {/* Hero */}
         <div className="grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]">
           <header className="flex animate-rise flex-col gap-5">
+            <Breadcrumbs crumbs={[{ label: "Home", href: routes.home }, { label: "Services", href: routes.services }, { label: "Fractional L&D" }]} />
             <Eyebrow>{f.eyebrow}</Eyebrow>
             <h1
               id="fl-title"
@@ -26,7 +26,7 @@ export function FractionalLd() {
               <span className="whitespace-nowrap text-gold">{f.title.accent}</span>
             </h1>
             <p className="max-w-[620px] text-base leading-relaxed text-mist md:text-lg">{f.intro}</p>
-            <GoldCta href={routes.contact} className="mt-2 tracking-[0.06em] uppercase">
+            <GoldCta href={routes.contact} className="mt-2">
               {f.cta}
               <ArrowUpRight size={16} />
             </GoldCta>
@@ -129,41 +129,6 @@ export function FractionalLd() {
             </ul>
           </article>
         </div>
-
-        {/* Closing banner */}
-        <aside
-          aria-labelledby="fl-closing"
-          className="relative isolate grid items-center gap-6 overflow-hidden rounded-[28px] border border-gold/35 bg-gradient-to-r from-gold/[0.12] via-white/[0.03] to-gold/[0.08] p-6 md:grid-cols-[1fr_auto] md:p-10"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute -right-24 -bottom-24 -z-10 size-80 rounded-full bg-[radial-gradient(closest-side,rgba(230,171,63,0.35),transparent)]"
-          />
-          <div className="flex flex-col gap-6">
-            <h2
-              id="fl-closing"
-              className="font-display text-[26px] leading-[1.15] font-semibold tracking-[0.02em] uppercase md:text-[34px]"
-            >
-              {f.closing.line1}
-              <br />
-              <span className="text-gold">{f.closing.line2}</span>
-            </h2>
-            <GoldCta href={routes.contact} className="tracking-[0.06em] uppercase">
-              {f.closing.cta}
-              <ArrowUpRight size={16} />
-            </GoldCta>
-          </div>
-          <div className="relative hidden size-40 place-items-center md:grid">
-            <div aria-hidden="true" className="absolute inset-3 rounded-full border border-gold/30 bg-gold/10" />
-            <Image
-              src={f.closing.image ?? logos.mark.src}
-              alt=""
-              width={f.closing.image ? 160 : 88}
-              height={f.closing.image ? 160 : Math.round((88 * logos.mark.height) / logos.mark.width)}
-              className="relative drop-shadow-[0_0_18px_rgba(230,171,63,0.45)]"
-            />
-          </div>
-        </aside>
       </Container>
     </section>
   );

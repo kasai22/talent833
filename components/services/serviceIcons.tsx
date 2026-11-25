@@ -155,3 +155,112 @@ export const ClockIcon = (p: IconProps) => (
     <path d="M12 7v5l3.5 2" />
   </Icon>
 );
+
+/* ---- Executive Hiring page ---- */
+
+export const ChessKingIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 2.5v3.5M10.3 4.2h3.4" />
+    <path d="M9.5 9.5c-.8-1.8.6-3.5 2.5-3.5s3.3 1.7 2.5 3.5" />
+    <path d="M9 9.5h6l-1 6.5h-4z" />
+    <path d="M8.5 16h7l1 3h-9zM6.5 21.5h11" />
+  </Icon>
+);
+
+export const LayersIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 3 21 8l-9 5-9-5z" />
+    <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+  </Icon>
+);
+
+export const ShieldStarIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 3 19.5 6v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z" />
+    <path d="m12 8.6 1.1 2.2 2.4.35-1.75 1.7.42 2.4L12 14.1l-2.17 1.15.42-2.4-1.75-1.7 2.4-.35z" />
+  </Icon>
+);
+
+export const ClipboardIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5" y="4.5" width="14" height="17" rx="2" />
+    <path d="M9 4.5V3.5h6v1M8.5 10l1.2 1.2 2-2M8.5 15.5l1.2 1.2 2-2M14 10.5h2M14 16h2" />
+  </Icon>
+);
+
+export const IdBadgeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5" y="3" width="14" height="18" rx="2.5" />
+    <circle cx="12" cy="10" r="2.5" />
+    <path d="M8.5 17c.6-2 2-3 3.5-3s2.9 1 3.5 3" />
+  </Icon>
+);
+
+/* ---- Bulk Hiring page (cafés & SMEs) ---- */
+
+export const CupIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 9.5h11v4.5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z" />
+    <path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16M3.5 21.5h15" />
+    <path d="M8.5 3c-.8 1 .8 2 0 3.5M12.5 3c-.8 1 .8 2 0 3.5" />
+  </Icon>
+);
+
+export const ClocheIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 17a7 7 0 0 1 14 0z" />
+    <path d="M12 10V8M10.5 8h3M3 20h18" />
+  </Icon>
+);
+
+export const ChefHatIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 14.5a4 4 0 0 1-.6-7.95A4.6 4.6 0 0 1 12 3.5a4.6 4.6 0 0 1 5.6 3.05A4 4 0 0 1 17 14.5" />
+    <path d="M7 12.5V20.5h10v-8M7 17.5h10" />
+  </Icon>
+);
+
+export const RegisterIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="7" y="3" width="10" height="6" rx="1" />
+    <path d="M12 9v2.5M5 11.5h14l1.5 6H3.5z" />
+    <path d="M3.5 17.5h17v3h-17zM8 14.5h1M11.5 14.5h1M15 14.5h1" />
+  </Icon>
+);
+
+export const BroomIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M20 3.5 13 10.5" />
+    <path d="M10.5 9.5 14.5 13.5 12 20c-2.6.6-6.4-.4-8.5-2.5 2-.6 3.8-2.6 4.5-5.2z" />
+    <path d="M7.5 16.5 9.5 18.5M10 14.5l1.5 1.5" />
+  </Icon>
+);
+
+export const ShopBagIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 8h14l-1 13H6z" />
+    <path d="M9 11V6.5a3 3 0 0 1 6 0V11" />
+  </Icon>
+);
+
+export const StorefrontIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M3 9.5 4.8 4h14.4L21 9.5" />
+    <path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0" />
+    <path d="M5 12v9h14v-9M10 21v-5h4v5" />
+  </Icon>
+);
+
+export const CalculatorIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5" y="3" width="14" height="18" rx="2" />
+    <path d="M8 6.5h8v3H8zM8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01" />
+  </Icon>
+);
+
+export const KeyIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="8" cy="15" r="4.5" />
+    <path d="m11.2 11.8 8.3-8.3M16.5 6.5l2.5 2.5M14.5 8.5l2 2" />
+  </Icon>
+);

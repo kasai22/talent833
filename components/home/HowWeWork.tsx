@@ -11,30 +11,16 @@ export function HowWeWork() {
         </div>
 
         <div className="relative">
-          {/* Connector: vertical dashed line on mobile, animated horizontal on desktop */}
+          {/* Connector: vertical dashed line on mobile, horizontal on desktop */}
           <span
             aria-hidden="true"
             className="absolute top-5 bottom-5 left-[21px] border-l-[1.5px] border-dashed border-gold/60 lg:hidden"
           />
-          <svg
+          {/* Desktop: from the first step's icon centre to the last one's (4 columns, gap-8, 64px icons). */}
+          <span
             aria-hidden="true"
-            className="absolute inset-x-8 top-[38px] hidden h-px overflow-visible lg:block"
-            width="100%"
-            height="2"
-            preserveAspectRatio="none"
-          >
-            <line
-              className="animate-dash"
-              x1="0"
-              y1="1"
-              x2="100%"
-              y2="1"
-              stroke="#E6AB3F"
-              strokeOpacity={0.6}
-              strokeWidth={1.5}
-              strokeDasharray="5 7"
-            />
-          </svg>
+            className="absolute top-10 right-[calc(25%-56px)] left-8 hidden border-t-[1.5px] border-dashed border-gold/60 lg:block"
+          />
 
           <ol className="relative grid gap-6 lg:grid-cols-4 lg:gap-8">
             {steps.map((s, i) => (

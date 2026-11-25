@@ -37,7 +37,8 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    // z-50 keeps the open mobile menu above the floating WhatsApp button (z-40).
+    <header className="absolute inset-x-0 top-0 z-50">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-10 lg:h-[88px] xl:px-14">
         <Link href={routes.home} aria-label="Talent833 HR Services home" className="flex items-center gap-2 lg:gap-3">
           <Image
@@ -89,7 +90,11 @@ export function Header() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            // Opening: show the current service's programmes straight away.
+            if (!open) setOpenSub(navServices.find((s) => isActive(serviceHref(s.slug)))?.slug ?? null);
+            setOpen((v) => !v);
+          }}
           aria-expanded={open}
           aria-controls={menuId}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -113,8 +118,9 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 aria-current={pathname === item.href ? "page" : undefined}
                 className={cn(
-                  "flex items-center justify-between py-5 aria-[current=page]:text-gold",
+                  "flex items-center justify-between py-5",
                   "font-display text-[28px] font-medium tracking-[-0.02em] transition-colors hover:text-gold",
+                  isActive(item.href) && "text-gold",
                 )}
               >
                 {item.label}
@@ -132,7 +138,10 @@ export function Header() {
                             href={serviceHref(s.slug)}
                             onClick={() => setOpen(false)}
                             aria-current={pathname === serviceHref(s.slug) ? "page" : undefined}
-                            className="flex grow items-center gap-3 py-2 text-base text-mist transition-colors hover:text-gold aria-[current=page]:text-gold"
+                            className={cn(
+                              "flex min-h-11 grow items-center gap-3 py-2 text-base transition-colors hover:text-gold",
+                              isActive(serviceHref(s.slug)) ? "text-gold" : "text-mist",
+                            )}
                           >
                             <s.icon size={18} className="shrink-0 text-gold" />
                             {s.title}
@@ -143,7 +152,7 @@ export function Header() {
                               onClick={() => setOpenSub(expanded ? null : s.slug)}
                               aria-expanded={expanded}
                               aria-label={`${expanded ? "Hide" : "Show"} ${s.title} programmes`}
-                              className="flex size-9 shrink-0 items-center justify-center rounded-full border border-white/14 text-gold"
+                              className="flex size-11 shrink-0 items-center justify-center rounded-full border border-white/14 text-gold transition-colors hover:border-gold/60 aria-expanded:bg-gold/12"
                             >
                               <ChevronDownIcon
                                 size={16}
@@ -159,7 +168,8 @@ export function Header() {
                                 <Link
                                   href={sub.href}
                                   onClick={() => setOpen(false)}
-                                  className="block py-2 text-sm text-mist transition-colors hover:text-gold"
+                                  aria-current={pathname === sub.href ? "page" : undefined}
+                                  className="flex min-h-10 items-center py-2 text-sm text-mist transition-colors hover:text-gold aria-[current=page]:text-gold"
                                 >
                                   {sub.title}
                                 </Link>
@@ -192,11 +202,17 @@ function ServicesDropdown({ active }: { active: boolean }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLAnchorElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // Escape closes the panel; if focus was inside it, hand focus back to the trigger so it isn't lost.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (ref.current?.contains(document.activeElement)) triggerRef.current?.focus();
+      setOpen(false);
+    };
     const onClick = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
     window.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onClick);
@@ -217,6 +233,7 @@ function ServicesDropdown({ active }: { active: boolean }) {
       onClick={(e) => (e.target as HTMLElement).closest("a") && setOpen(false)}
     >
       <Link
+        ref={triggerRef}
         href={routes.services}
         aria-current={pathname === routes.services ? "page" : undefined}
         aria-expanded={open}
@@ -243,7 +260,10 @@ function ServicesDropdown({ active }: { active: boolean }) {
                   <Link
                     href={href}
                     aria-current={pathname === href ? "page" : undefined}
-                    className="group flex items-center gap-3 rounded-[14px] p-2.5 transition-colors group-hover/sub:bg-white/6 hover:bg-white/6 aria-[current=page]:bg-white/8"
+                    className={cn(
+                      "group flex items-center gap-3 rounded-[14px] p-2.5 transition-colors group-hover/sub:bg-white/6 hover:bg-white/6 aria-[current=page]:bg-white/8",
+                      pathname.startsWith(`${href}/`) && "bg-white/8",
+                    )}
                   >
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-gold/12 text-gold">
                       <s.icon size={18} />
@@ -271,7 +291,8 @@ function ServicesDropdown({ active }: { active: boolean }) {
                             <li key={sub.href}>
                               <Link
                                 href={sub.href}
-                                className="flex items-center gap-3 rounded-[12px] px-2.5 py-2 text-sm text-mist transition-colors hover:bg-white/6 hover:text-gold"
+                                aria-current={pathname === sub.href ? "page" : undefined}
+                                className="flex items-center gap-3 rounded-[12px] px-2.5 py-2 text-sm text-mist transition-colors hover:bg-white/6 hover:text-gold aria-[current=page]:bg-white/8 aria-[current=page]:text-gold"
                               >
                                 <span className="w-5 shrink-0 text-[11px] font-semibold tracking-[0.08em] text-gold">
                                   {String(n + 1).padStart(2, "0")}

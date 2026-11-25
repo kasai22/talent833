@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { StarField } from "@/components/home/StarField";
-import { cn } from "@/components/ui";
+import { cn, pillClass } from "@/components/ui";
 
 /** Shared building blocks for the bespoke service pages (Corporate Training, Fractional L&D). */
 
@@ -66,16 +66,10 @@ export function RuleHeading({
   );
 }
 
-/** Solid gold pill CTA. */
+/** Primary CTA on the bespoke service pages: the shared gold pill (see components/ui). */
 export function GoldCta({ href, className, children }: { href: string; className?: string; children: ReactNode }) {
   return (
-    <Link
-      href={href}
-      className={cn(
-        "inline-flex h-[52px] w-fit items-center gap-2.5 rounded-full bg-gradient-to-b from-gold-light/90 to-gold px-6 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_30px_rgba(230,171,63,0.3)] transition duration-200 hover:-translate-y-px",
-        className,
-      )}
-    >
+    <Link href={href} className={cn(pillClass({ variant: "gold", size: "lg" }), "w-fit", className)}>
       {children}
     </Link>
   );

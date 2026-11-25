@@ -1,10 +1,9 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { StarField } from "@/components/home/StarField";
 import { WireGlobe } from "@/components/site/WireGlobe";
-import { Container, Eyebrow, cn } from "@/components/ui";
+import { Breadcrumbs, Container, Eyebrow, cn, type Crumb } from "@/components/ui";
 
-export type Crumb = { label: string; href?: string };
+export type { Crumb };
 
 type Props = {
   crumbs: Crumb[];
@@ -43,24 +42,7 @@ export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideA
         )}
       >
         <div className="flex max-w-[760px] animate-rise flex-col gap-5">
-          <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-2 text-[13px] text-muted">
-              {crumbs.map((c, i) => (
-                <li key={c.label} className="flex items-center gap-2">
-                  {i > 0 && <span aria-hidden="true">/</span>}
-                  {c.href ? (
-                    <Link href={c.href} className="transition-colors hover:text-gold">
-                      {c.label}
-                    </Link>
-                  ) : (
-                    <span aria-current="page" className="text-cream">
-                      {c.label}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </nav>
+          <Breadcrumbs crumbs={crumbs} />
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="font-display text-[40px] leading-[1.02] font-medium tracking-[-0.03em] text-balance md:text-[56px] xl:text-[64px]">
             {title}

@@ -14,6 +14,7 @@ import {
   UsersIcon,
   type IconProps,
 } from "@/components/icons";
+import { hiringHref } from "@/lib/content/hiring";
 import { serviceHref } from "@/lib/content/services";
 import { routes } from "@/lib/site";
 
@@ -83,27 +84,13 @@ export const heroServices: HeroService[] = [
     tag: "The right talent, at every level",
     desc: "We help organisations attract, engage and hire the right people — from leadership and specialist roles to high-volume hiring — across GCCs, Technology & SaaS, BFSI & FinTech, and Product & Digital.",
     points: [
-      "Executive & Leadership Hiring",
+      "Executive Hiring",
       "Specialist & Critical Roles",
-      "Bulk & Volume Hiring",
+      "Bulk Hiring",
       "GCCs, Tech, BFSI & Digital",
     ],
     icon: TargetArrowIcon,
-    slug: "executive-search",
-  },
-  {
-    num: "05",
-    title: "Customised Learning Solutions",
-    tag: "Bespoke programmes, built around you",
-    desc: "Bespoke learning programmes designed around organisational needs, capability gaps and specific business objectives — tailored to the audience, context and outcomes you want to achieve.",
-    points: [
-      "Built around your capability gaps",
-      "Tailored to the audience",
-      "Shaped by your business context",
-      "Designed for your outcomes",
-    ],
-    icon: CompassIcon,
-    slug: "customised-solutions",
+    slug: "hiring",
   },
 ];
 
@@ -111,6 +98,18 @@ export const heroServices: HeroService[] = [
    Who we are
    --------------------------------------------------------------- */
 
+/** Home page "Who we are" block: short copy, no numbers. */
+export const whoWeAre = {
+  title: "People capability, built to perform.",
+  body: "We help organisations grow the right skills and hire the right people — so learning and talent move the business forward together.",
+  pillars: [
+    { title: "Learn", body: "Experiential programmes built around real workplace challenges." },
+    { title: "Build", body: "Long-term L&D partnerships that strengthen teams and leaders." },
+    { title: "Hire", body: "The right talent, from leadership roles to high-volume hiring." },
+  ],
+};
+
+/** Used on the About page. */
 export const stats = [
   { value: "12-month", label: "learning partnerships" },
   { value: "18", label: "signature programmes" },
@@ -141,7 +140,7 @@ export const practices: Practice[] = [
     items: [
       { title: "Fractional L&D Partner", sub: "Your extended L&D partner", icon: UsersIcon, href: serviceHref("fractional-ld-partner") },
       { title: "Strategic Learning Partnerships", sub: "Year-long learning journeys", icon: ShieldCheckIcon, href: serviceHref("learning-partnerships") },
-      { title: "Executive & Specialist Search", sub: "₹12 Lakh+ leadership and specialist roles", icon: CompassIcon, href: serviceHref("executive-search") },
+      { title: "Executive & Specialist Search", sub: "₹12 Lakh+ leadership and specialist roles", icon: CompassIcon, href: hiringHref("executive-hiring") },
     ],
   },
   {
@@ -188,6 +187,7 @@ export const programmes = [
     title: "Communication programmes",
     body: "Business communication, stakeholder management, executive presence and more.",
     footer: "Standalone · Customised",
+    href: `${routes.training}#ct-comm`,
   },
   {
     badge: "8 programmes",
@@ -195,6 +195,7 @@ export const programmes = [
     title: "Leadership programmes",
     body: "Emotional intelligence, strategic thinking, systems thinking and more.",
     footer: "Standalone · Customised",
+    href: `${routes.training}#ct-lead`,
   },
   {
     badge: "Bespoke",
@@ -202,6 +203,7 @@ export const programmes = [
     title: "Customised solutions",
     body: "Programmes designed around your audience, context and outcomes.",
     footer: "Built around you",
+    href: `${routes.services}#customised-solutions`,
   },
 ];
 

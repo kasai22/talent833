@@ -13,17 +13,28 @@
   --color-gold: #e6ab3f;
   --color-gold-deep: #9c7426;
   --color-gold-light: #ffe3a1;
+  /* Text roles: cream = primary, mist = body, muted = secondary/meta. Use gold for emphasis only. */
+  /* Hairlines: white/12 is the default border; gold/45 marks hover/active; gold/30 marks a featured surface. */
+  --color-line: rgb(255 255 255 / 0.12);
 
+  /* Radii: controls are pills (rounded-full); cards and panels use these two steps. */
+  --radius-card: 20px;
+  --radius-panel: 28px;
+
+  /* Elevation: card for floating UI (menus, hero cards), dialog for modals, gold for the primary CTA. */
   --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.45);
   --shadow-card-hover: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(230, 171, 63, 0.15);
   --shadow-dialog: 0 40px 120px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 10px 30px -12px rgba(230, 171, 63, 0.55);
 
-  --animate-float: floaty 7s ease-in-out infinite;
-  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+  /* Decorative loops play a few times and settle, so nothing keeps moving beside the content.
+     The globe meridian is slow and subtle enough to keep running. */
+  --animate-float: floaty 7s ease-in-out 2;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out 3;
   --animate-rise: rise 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   --animate-sheet: sheet 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  --animate-dash: dash 6s linear infinite;
-  --animate-ping-soft: ping-soft 2.6s ease-out infinite;
+  --animate-dash: dash 6s linear 2;
+  --animate-ping-soft: ping-soft 2.6s ease-out 3;
   --animate-meridian: meridian 24s ease-in-out infinite;
 
   @keyframes floaty {
@@ -103,6 +114,11 @@
 @layer base {
   html {
     color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+  /* In-page anchors land clear of the top of the viewport. */
+  [id] {
+    scroll-margin-top: 2rem;
   }
   body {
     @apply bg-ink font-sans text-cream antialiased;
@@ -145,6 +161,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {

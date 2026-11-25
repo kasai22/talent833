@@ -1,18 +1,18 @@
 import Link from "next/link";
-import { ArrowRightIcon, MailIcon, PhoneIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { BrochureButton } from "@/components/services/BrochureButton";
-import { BulbTeamIcon, DownloadIcon } from "@/components/services/trainingIcons";
-import { GoldCta, PageBackdrop, RuleHeading, darkPanel, goldPanel, iconTile } from "@/components/services/trainingUi";
-import { Container, cn } from "@/components/ui";
+import { DownloadIcon } from "@/components/services/trainingIcons";
+import { GoldCta, PageBackdrop, RuleHeading, darkPanel, iconTile } from "@/components/services/trainingUi";
+import { Breadcrumbs, Container, cn, pillClass } from "@/components/ui";
 import { getBrochure } from "@/lib/content/brochures";
 import { brochureMessage, capabilityBuilding as cb } from "@/lib/content/capabilityBuilding";
 import { partnershipHref, partnershipTracks } from "@/lib/content/partnerships";
-import { contact, routes, whatsappHref } from "@/lib/site";
+import { routes, whatsappHref } from "@/lib/site";
 
-const outlinePill =
-  "inline-flex h-[52px] w-fit items-center justify-center gap-2 rounded-full border border-white/25 px-6 text-[15px] font-semibold whitespace-nowrap text-cream transition duration-200 hover:-translate-y-px hover:border-gold/60";
+/** Secondary hero action: the shared outline pill. */
+const outlinePill = cn(pillClass({ variant: "outline", size: "lg" }), "w-fit");
 
-/** Capability Building page body: hero, framework pillars, 12-month journey, solutions grid and closing CTA. */
+/** Capability Building page body: hero, framework pillars, 12-month journey, and solutions grid. */
 export function CapabilityBuilding() {
   return (
     <section aria-labelledby="cb-title" className="relative isolate overflow-hidden">
@@ -22,6 +22,7 @@ export function CapabilityBuilding() {
         {/* Hero */}
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
           <header className="flex animate-rise flex-col gap-5">
+            <Breadcrumbs crumbs={[{ label: "Home", href: routes.home }, { label: "Services", href: routes.services }, { label: "Capability Building" }]} />
             <h1
               id="cb-title"
               className="font-display text-[34px] leading-[1.06] font-semibold tracking-[-0.025em] text-balance md:text-5xl xl:text-[54px]"
@@ -142,7 +143,7 @@ export function CapabilityBuilding() {
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/10 pt-4 text-sm font-semibold">
                     <Link
                       href={partnershipHref(track)}
-                      className="inline-flex items-center gap-1.5 text-cream transition-colors hover:text-gold"
+                      className="inline-flex min-h-10 items-center gap-1.5 text-cream transition-colors hover:text-gold"
                     >
                       {cb.solutions.knowMore}
                       <span className="sr-only"> about {fullTitle}</span>
@@ -153,7 +154,7 @@ export function CapabilityBuilding() {
                       <BrochureButton
                         offering={track}
                         title={fullTitle}
-                        className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
+                        className="inline-flex min-h-10 items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
                       >
                         <DownloadIcon size={15} />
                         {cb.solutions.brochure}
@@ -165,7 +166,7 @@ export function CapabilityBuilding() {
                       href={whatsappHref(brochureMessage(fullTitle))}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
+                      className="inline-flex min-h-10 items-center gap-1.5 text-gold transition-colors hover:text-gold-light"
                     >
                       <DownloadIcon size={15} />
                       {cb.solutions.brochure}
@@ -178,41 +179,6 @@ export function CapabilityBuilding() {
             })}
           </ul>
         </div>
-
-        {/* Closing CTA */}
-        <aside
-          aria-labelledby="cb-closing"
-          className={cn(
-            goldPanel,
-            "relative isolate grid items-center gap-6 overflow-hidden rounded-[28px] p-6 md:p-8 lg:grid-cols-[auto_1fr_auto] lg:gap-10",
-          )}
-        >
-          <BulbTeamIcon size={96} className="hidden text-gold drop-shadow-[0_0_16px_rgba(230,171,63,0.4)] lg:block" />
-          <div className="flex flex-col gap-3 lg:border-l lg:border-gold/30 lg:pl-10">
-            <h2 id="cb-closing" className="font-display text-2xl leading-tight font-semibold md:text-[30px]">
-              {cb.closing.title}
-            </h2>
-            {cb.closing.body.map((p) => (
-              <p key={p} className="text-[15px] leading-relaxed text-mist">
-                {p}
-              </p>
-            ))}
-            <p className="font-display text-lg font-semibold text-gold">{cb.closing.tagline}</p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:border-l lg:border-gold/30 lg:pl-10">
-            <a href={contact.phoneHref} className={cn(outlinePill, "w-full border-gold bg-gold text-ink hover:text-ink lg:w-56")}>
-              <PhoneIcon size={16} />
-              {cb.closing.call}
-            </a>
-            <a href={contact.emailHref} className={cn(outlinePill, "w-full lg:w-56")}>
-              <MailIcon size={16} />
-              {cb.closing.write}
-            </a>
-            <Link href={routes.contact} className={cn(outlinePill, "w-full lg:w-56")}>
-              {cb.closing.consult}
-            </Link>
-          </div>
-        </aside>
       </Container>
     </section>
   );

@@ -2,22 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/home/CtaBanner";
-import { ArrowRightIcon } from "@/components/icons";
 import { BrochureButton } from "@/components/services/BrochureButton";
-import { FlowBody, LinkCards, TrackBody } from "@/components/services/ServiceDetailBlocks";
+import { CampusBridge, FocusHub, JourneyTimeline, OutcomeChart, TrackHeroArt } from "@/components/services/PartnershipTrack";
+import { FlowBody } from "@/components/services/ServiceDetailBlocks";
 import { DownloadIcon } from "@/components/services/trainingIcons";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PageHero } from "@/components/site/PageHero";
+import { pillClass } from "@/components/ui";
 import { WhatsAppLink } from "@/components/site/WhatsAppLink";
-import { Container, Eyebrow, PillLink, SectionTitle } from "@/components/ui";
 import { getBrochure } from "@/lib/content/brochures";
-import {
-  PARTNERSHIPS_SLUG,
-  getPartnershipTrack,
-  partnershipHref,
-  partnershipTracks,
-} from "@/lib/content/partnerships";
+import { PARTNERSHIPS_SLUG, getPartnershipTrack, partnershipTracks } from "@/lib/content/partnerships";
 import { getService, serviceHref } from "@/lib/content/services";
 import { enquiryMessage, routes } from "@/lib/site";
 
@@ -58,6 +53,7 @@ async function TrackDetail({ params }: { params: Params }) {
   const t = await resolve(params);
   if (!t) notFound();
   const parent = getService(PARTNERSHIPS_SLUG)!;
+  const chips = (t.kind === "flow" ? t.academies.items : t.focus).slice(0, 2).map((f) => f.title);
 
   return (
     <>
@@ -70,6 +66,7 @@ async function TrackDetail({ params }: { params: Params }) {
         ]}
         eyebrow={`${parent.title} · Offering ${t.num}`}
         title={t.title}
+        aside={<TrackHeroArt track={t.id} chips={chips} />}
         lede={
           t.kind === "flow" ? (
             <p className="text-cream">{t.kicker}</p>
@@ -86,12 +83,12 @@ async function TrackDetail({ params }: { params: Params }) {
           {/* <PillLink href={routes.contact} variant="gold" size="lg">
             Book a consultation
           </PillLink> */}
-          <WhatsAppLink variant="light" size="lg" message={enquiryMessage(t.title)} />
+          <WhatsAppLink variant="gold" size="lg" message={enquiryMessage(t.title)} />
           {getBrochure(t.id) && (
             <BrochureButton
               offering={t.id}
               title={t.title}
-              className="inline-flex h-[52px] items-center gap-2 rounded-full border border-gold/50 px-6 text-[15px] font-semibold text-cream transition duration-200 hover:-translate-y-px hover:border-gold"
+              className={pillClass({ variant: "outline", size: "lg" })}
             >
               <DownloadIcon size={16} className="text-gold" />
               Download Brochure
@@ -100,28 +97,28 @@ async function TrackDetail({ params }: { params: Params }) {
         </div>
       </PageHero>
 
-      {t.kind === "flow" ? <FlowBody t={t} /> : <TrackBody t={t} />}
-
-      <section aria-labelledby="more-offerings" className="border-t border-white/12 pt-14 md:pt-20 xl:pt-24">
-        <Container className="flex flex-col gap-8 md:gap-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="flex flex-col gap-[18px]">
-              <Eyebrow>{parent.title}</Eyebrow>
-              <SectionTitle id="more-offerings">Explore our other flagship offerings</SectionTitle>
-            </div>
-            <div>
-              <PillLink href={serviceHref(parent.slug)}>
-                All partnership offerings <ArrowRightIcon size={16} />
-              </PillLink>
-            </div>
-          </div>
-          <LinkCards
-            items={partnershipTracks
-              .filter((o) => o.id !== t.id)
-              .map((o) => ({ title: o.title, href: partnershipHref(o.id), num: o.num, icon: o.icon }))}
+      {t.kind === "flow" ? (
+        <>
+          <FlowBody t={t} />
+          <JourneyTimeline id={`${t.id}-journey`} />
+        </>
+      ) : (
+        <>
+          <FocusHub
+            id={`${t.id}-focus`}
+            eyebrow={t.kicker ?? t.short}
+            title={t.focusTitle}
+            hubLabel={t.short}
+            unit={t.focusUnit}
+            icon={t.icon}
+            items={t.focus}
           />
-        </Container>
-      </section>
+          {t.bridge ? <CampusBridge id={`${t.id}-bridge`} bridge={t.bridge} /> : <JourneyTimeline id={`${t.id}-journey`} />}
+          {t.outcome && t.outcomePoints && (
+            <OutcomeChart id={`${t.id}-outcome`} statement={t.outcome} points={t.outcomePoints} closing={t.closing} />
+          )}
+        </>
+      )}
     </>
   );
 }

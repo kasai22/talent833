@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type { ComponentType } from "react";
 import capabilityImg from "@/public/services/capability-building.jpg";
+import customisedImg from "@/public/services/customised-solutions.jpg";
 import fractionalImg from "@/public/services/fractional-ld.jpg";
 import signatureImg from "@/public/services/signature-programmes.jpg";
 import talentImg from "@/public/services/talent-acquisition.jpg";
@@ -24,6 +25,7 @@ import {
   SearchIcon,
   StarIcon,
 } from "@/components/services/serviceIcons";
+import { HIRING_SLUG, hiringHref, hiringRoles } from "@/lib/content/hiring";
 import { PARTNERSHIPS_SLUG, partnershipHref, partnershipTracks } from "@/lib/content/partnerships";
 import { routes } from "@/lib/site";
 
@@ -52,6 +54,10 @@ export type Service = {
   /** One icon per point, shown on the detail page instead of extra copy. */
   pointIcons: [Icon, Icon, Icon, Icon];
   bestFor: string;
+  /** Optional sales pitch under the card text, with its own "Let's talk" call to action. */
+  pitch?: { title: string; body: string; highlight: string; cta: string };
+  /** Shown only as a card on /services, with no detail page of its own. */
+  noPage?: true;
   icon: ComponentType<IconProps>;
   visual: ServiceVisualKind;
 };
@@ -114,18 +120,18 @@ export const services: Service[] = [
     visual: "orgTree",
   },
   {
-    slug: "executive-search",
+    slug: HIRING_SLUG,
     num: "04",
     short: "Hiring",
     category: "Hiring",
     tone: "gold",
     title: "Hiring",
     headline: ["", "Hiring"],
-    strap: "From executive search to bulk hiring.",
+    strap: "From executive hiring to bulk hiring.",
     image: talentImg,
     tagline: "The right talent, at every level.",
     desc: "We help organisations attract, engage and hire the right people — from leadership and specialist roles to high-volume hiring — across GCCs, Technology & SaaS, BFSI & FinTech, and Product & Digital.",
-    points: ["Executive & Leadership Hiring", "Specialist & Critical Roles", "Bulk & Volume Hiring", "GCCs, Tech, BFSI & Digital"],
+    points: ["Executive Hiring", "Specialist & Critical Roles", "Bulk Hiring", "GCCs, Tech, BFSI & Digital"],
     pointIcons: [BriefcaseIcon, StarIcon, UsersIcon, GlobeIcon],
     bestFor: "Leadership, specialist and volume roles",
     icon: UsersIcon,
@@ -138,8 +144,16 @@ export const services: Service[] = [
     category: "Learning",
     tone: "silver",
     title: "Customised Learning Solutions",
-    headline: ["Customised", "Learning Solutions"],
-    strap: "Bespoke programmes, built around you.",
+    headline: ["Customised", "Solutions"],
+    strap: "Tailored to your people, goals and business needs.",
+    image: customisedImg,
+    noPage: true,
+    pitch: {
+      title: "Looking for something beyond the conventional?",
+      body: "Tell us what you have in mind. We’ll work with you to create a solution",
+      highlight: "tailored to your organisation.",
+      cta: "Let’s Talk",
+    },
     tagline: "Bespoke programmes, built around you.",
     desc: "Bespoke learning programmes designed around organisational needs, capability gaps and specific business objectives — tailored to the audience, context and outcomes you want to achieve.",
     points: ["Your capability gaps", "Your audience", "Your business context", "Your outcomes"],
@@ -150,8 +164,11 @@ export const services: Service[] = [
   },
 ];
 
+/** Services that have their own detail page under /services/[slug]. */
+export const servicePages = services.filter((s) => !s.noPage);
+
 export function getService(slug: string) {
-  return services.find((s) => s.slug === slug);
+  return servicePages.find((s) => s.slug === slug);
 }
 
 export const serviceHref = (slug: string) => `${routes.services}/${slug}`;
@@ -160,5 +177,6 @@ export type ServiceSubItem = { title: string; href: string };
 
 /** Second-level menu entries shown under a service in the nav (keyed by service slug). */
 export const serviceSubItems: Record<string, ServiceSubItem[]> = {
+  [HIRING_SLUG]: hiringRoles.map((r) => ({ title: r.title, href: hiringHref(r.id) })),
   [PARTNERSHIPS_SLUG]: partnershipTracks.map((t) => ({ title: t.title, href: partnershipHref(t.id) })),
 };

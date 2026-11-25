@@ -72,12 +72,4 @@ export const corporateTraining = {
       { title: "Critical Thinking & Problem-Solving", icon: BulbIcon },
     ] satisfies { title: string; icon: Icon }[],
   },
-
-  customised: {
-    title: "Customised Learning Solutions",
-    body: "Bespoke learning programmes designed around organisational needs, capability gaps and specific business objectives. Each intervention is tailored to the audience, context and outcomes the organisation wants to achieve.",
-    cta: "Discuss Your Requirements",
-    /** Optional illustration on the left of the banner (e.g. "/mascot.png"). Falls back to the logo mark. */
-    image: undefined as string | undefined,
-  },
 };
