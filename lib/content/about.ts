@@ -23,6 +23,9 @@ export const about = {
   cta: "Let's understand your organisation and explore how we can make learning work for your business.",
 };
 
+/** Pull quote runs: `{ strong }` is set bright and bold, `{ gold }` in gold. */
+export type QuoteRuns = Array<string | { strong: string } | { gold: string }>;
+
 /** About page hero only. `about` above still feeds the home page "Who we are" block. */
 export const aboutHero = {
   eyebrow: "About Talent833 Partners",
@@ -42,7 +45,15 @@ export const aboutHero = {
     " at once: ",
     { gold: "people" },
     " who keep developing, and leaders who are chosen with care.",
-  ] satisfies Array<string | { strong: string } | { gold: string }>,
+  ] satisfies QuoteRuns,
+  /** Second paragraph, followed by `closingQuote`. */
+  detail:
+    "From fractional L&D leadership and year-long learning partnerships to signature programmes and executive search, our work is structured, outcome-focused and flexible enough to fit where your business actually is.",
+  closingQuote: [
+    "With teams across India, we work as an ",
+    { gold: "extension of yours" },
+    ", not as a vendor on the sidelines.",
+  ] satisfies QuoteRuns,
   philosophiesTitle: "Our Philosophies",
   philosophies: [
     {

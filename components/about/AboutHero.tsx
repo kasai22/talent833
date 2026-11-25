@@ -1,7 +1,7 @@
 import { GoldWaves } from "@/components/about/GoldWaves";
 import { BookIcon, ChevronDownIcon, HandshakeIcon, UsersIcon } from "@/components/icons";
 import { PageHero } from "@/components/site/PageHero";
-import { aboutHero } from "@/lib/content/about";
+import { aboutHero, type QuoteRuns } from "@/lib/content/about";
 import { routes } from "@/lib/site";
 
 const philosophyIcons = { book: BookIcon, users: UsersIcon, handshake: HandshakeIcon };
@@ -11,6 +11,7 @@ export function AboutHero() {
   return (
     <PageHero
       crumbs={[{ label: "Home", href: routes.home }, { label: "About" }]}
+      compact
       eyebrow={aboutHero.eyebrow}
       backdrop={<GoldWaves className="absolute inset-0 size-full opacity-80" />}
       title={
@@ -23,37 +24,11 @@ export function AboutHero() {
         </>
       }
       lede={
-        <div className="flex flex-col gap-7">
+        <div className="flex flex-col gap-4 md:gap-5">
           <p>{aboutHero.intro}</p>
-          <blockquote className="border-l-2 border-gold/80 py-1 pl-5 md:pl-7">
-            <p className="relative pl-10 font-display text-[17px] leading-[1.55] text-mist italic md:pl-12 md:text-xl">
-              <span
-                aria-hidden="true"
-                className="absolute top-0 left-0 font-display text-5xl leading-[0.8] font-bold text-gold not-italic md:text-6xl"
-              >
-                &ldquo;
-              </span>
-              {aboutHero.quote.map((r, i) =>
-                typeof r === "string" ? (
-                  r
-                ) : "strong" in r ? (
-                  <strong key={i} className="font-semibold text-cream">
-                    {r.strong}
-                  </strong>
-                ) : (
-                  <span key={i} className="font-semibold text-gold">
-                    {r.gold}
-                  </span>
-                ),
-              )}
-              <span
-                aria-hidden="true"
-                className="ml-2 inline-block translate-y-5 font-display text-5xl leading-[0] font-bold text-gold not-italic md:text-6xl"
-              >
-                &rdquo;
-              </span>
-            </p>
-          </blockquote>
+          <PullQuote runs={aboutHero.quote} />
+          <p>{aboutHero.detail}</p>
+          <PullQuote runs={aboutHero.closingQuote} />
         </div>
       }
       asideAlign="start"
@@ -114,6 +89,41 @@ export function AboutHero() {
   );
 }
 
+/** Highlighted pull quote: gold rule, gold quote marks, emphasised runs. */
+function PullQuote({ runs }: { runs: QuoteRuns }) {
+  return (
+    <blockquote className="border-l-2 border-gold/80 py-0.5 pl-4 md:pl-5">
+      <p className="relative pl-7 font-display text-[15px] leading-[1.55] text-cream/90 italic md:pl-8 md:text-base">
+        <span
+          aria-hidden="true"
+          className="absolute top-0 left-0 font-display text-[32px] leading-[0.8] font-bold text-gold not-italic md:text-4xl"
+        >
+          &ldquo;
+        </span>
+        {runs.map((r, i) =>
+          typeof r === "string" ? (
+            r
+          ) : "strong" in r ? (
+            <strong key={i} className="font-semibold text-cream">
+              {r.strong}
+            </strong>
+          ) : (
+            <span key={i} className="font-semibold text-gold">
+              {r.gold}
+            </span>
+          ),
+        )}
+        <span
+          aria-hidden="true"
+          className="ml-1 inline-block translate-y-3 font-display text-[32px] leading-[0] font-bold text-gold not-italic md:text-4xl"
+        >
+          &rdquo;
+        </span>
+      </p>
+    </blockquote>
+  );
+}
+
 /** Brush-stroke underline beneath the title. */
 function Swoosh() {
   return (
@@ -122,7 +132,7 @@ function Swoosh() {
       focusable="false"
       viewBox="0 0 400 24"
       preserveAspectRatio="none"
-      className="mt-3 block h-3 w-[78%] max-w-[440px] md:h-4"
+      className="mt-2 block h-2.5 w-[70%] max-w-[340px] md:h-3"
     >
       <defs>
         <linearGradient id="about-swoosh" x1="0" x2="1">

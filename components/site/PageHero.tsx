@@ -18,10 +18,12 @@ type Props = {
   asideAlign?: "center" | "start";
   /** Extra decoration layered behind the content, over the star field. */
   backdrop?: ReactNode;
+  /** Smaller title and lede, for heroes carrying more copy. */
+  compact?: boolean;
 };
 
 /** Inner-page hero: star field, gold glow, wire globe, breadcrumb and title. */
-export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideAlign = "center", backdrop }: Props) {
+export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideAlign = "center", backdrop, compact = false }: Props) {
   return (
     <section className="relative isolate overflow-hidden border-b border-white/12">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
@@ -41,13 +43,29 @@ export function PageHero({ crumbs, eyebrow, title, lede, children, aside, asideA
           !!aside && (asideAlign === "start" ? "items-start" : "items-center"),
         )}
       >
-        <div className="flex max-w-[760px] animate-rise flex-col gap-5">
+        <div className={cn("flex max-w-[760px] animate-rise flex-col", compact ? "gap-4" : "gap-5")}>
           <Breadcrumbs crumbs={crumbs} />
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="font-display text-[40px] leading-[1.02] font-medium tracking-[-0.03em] text-balance md:text-[56px] xl:text-[64px]">
+          <h1
+            className={cn(
+              "font-display font-medium tracking-[-0.03em] text-balance",
+              compact
+                ? "text-[32px] leading-[1.08] md:text-[42px] xl:text-[46px]"
+                : "text-[40px] leading-[1.02] md:text-[56px] xl:text-[64px]",
+            )}
+          >
             {title}
           </h1>
-          {lede && <div className="max-w-[620px] text-base leading-relaxed text-mist md:text-lg">{lede}</div>}
+          {lede && (
+            <div
+              className={cn(
+                "max-w-[620px] leading-relaxed text-mist",
+                compact ? "text-[15px] md:text-base" : "text-base md:text-lg",
+              )}
+            >
+              {lede}
+            </div>
+          )}
           {children}
         </div>
         {aside}
