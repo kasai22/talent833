@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-dvh">
         {children}
         <WhatsAppFloat />
+        <Analytics />
       </body>
     </html>
   );
